@@ -14,7 +14,8 @@ public class formTransfer extends javax.swing.JFrame {
     /**
      * Creates new form Transfer
      */
-    public formTransfer() {
+    public formTransfer(int userId) {
+        System.out.println(userId);
         initComponents();
         setLocationRelativeTo(null);        
     }
@@ -218,7 +219,6 @@ public class formTransfer extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here:
-        System.out.println("hla");
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     /**
@@ -252,7 +252,7 @@ public class formTransfer extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new formTransfer().setVisible(true);
+                new formTransfer(0).setVisible(true);
             }
         });
     }

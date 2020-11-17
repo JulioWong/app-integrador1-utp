@@ -1,26 +1,38 @@
 package Classes;
 
-import Data.Database;
-import static com.mongodb.client.model.Filters.eq;
+import Data.UsuarioModel;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 
 public class Usuario {
+    private int userId;
     private final Facultad facultad;
     private final String usuario;
     private final String contrasena;
-    private final Database database;
+    private final UsuarioModel usuarioModel;
 
     public Usuario(Facultad facultad, String usuario, String contrasena) {
-        this.database = new Database();
         this.facultad = facultad;
         this.usuario = usuario;
-        this.contrasena = contrasena;
+        this.contrasena = DigestUtils.md5Hex(contrasena);
+        this.usuarioModel = new UsuarioModel();
+    }
+
+    public int getUserId() {
+        return userId;
     }
     
     public Boolean login() {
-        Document mydoc = this.database.getMongoCollection("user").find(
-                eq("user", this.usuario)).first();
-        System.out.println(mydoc);
-        return false;
+        try {
+            Document usuario = this.usuarioModel.getUserByLogin(
+            facultad.getFacultadId(), this.usuario, this.contrasena);
+            if (!usuario.get("userId").toString().equals("")) {
+                this.userId = Integer.parseInt(usuario.get("userId").toString());
+                return true;
+            }
+            return false;
+        } catch (Exception e) {
+            return false;
+        }
     }
 }
