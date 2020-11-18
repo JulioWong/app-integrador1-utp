@@ -1,5 +1,7 @@
 package Classes;
 
+// Hola Julio tienes que enseñarnos desde 0 programación.
+
 public class Facultad {
     private final int facultadId;
     private final String descripcion;
