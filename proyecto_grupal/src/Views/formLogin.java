@@ -1,7 +1,6 @@
 package Views;
 import Classes.Facultad;
 import Classes.Usuario;
-import Data.FacultadModel;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import org.bson.Document;
@@ -25,8 +24,6 @@ public class formLogin extends javax.swing.JFrame {
         txtUsuario = new javax.swing.JTextField();
         btnLogin = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        labelFacultad = new javax.swing.JLabel();
-        comboFacultad = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -46,8 +43,6 @@ public class formLogin extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login.png"))); // NOI18N
 
-        labelFacultad.setText("Facultad");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,17 +52,13 @@ public class formLogin extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(comboFacultad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtContrasena)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelContrasena)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnLogin))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelFacultad)
+                            .addComponent(labelContrasena)
                             .addComponent(labelUsuario)
                             .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 4, Short.MAX_VALUE)))
@@ -76,13 +67,9 @@ public class formLogin extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelFacultad)
-                .addGap(7, 7, 7)
-                .addComponent(comboFacultad, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addComponent(labelUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -90,12 +77,10 @@ public class formLogin extends javax.swing.JFrame {
                         .addComponent(labelContrasena)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -104,25 +89,11 @@ public class formLogin extends javax.swing.JFrame {
     private void render() {
         txtContrasena.setText("");
         txtUsuario.setText("");
-        
-        FacultadModel facultadModel = new FacultadModel();
-        
-        for (Document document : facultadModel.getAll()) {
-            comboFacultad.addItem(
-                new Facultad(
-                    Integer.parseInt(document.get("facultadId").toString()),
-                    document.get("description").toString()
-                )
-            );
-        }
-        comboFacultad.setSelectedIndex(0);
     }
     
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        Facultad facultad = comboFacultad.getItemAt(
-                comboFacultad.getSelectedIndex());
-        Usuario usuario = new Usuario(facultad, 
-                txtUsuario.getText(), txtContrasena.getText());    
+        Usuario usuario = new Usuario(txtUsuario.getText(), 
+                txtContrasena.getText());    
         if(usuario.login()) {
             new formTransfer(usuario.getUserId()).setVisible(true);
             this.setVisible(false);
@@ -169,10 +140,8 @@ public class formLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
-    private javax.swing.JComboBox<Facultad> comboFacultad;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelContrasena;
-    private javax.swing.JLabel labelFacultad;
     private javax.swing.JLabel labelUsuario;
     private javax.swing.JPasswordField txtContrasena;
     private javax.swing.JTextField txtUsuario;
