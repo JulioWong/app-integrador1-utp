@@ -8,8 +8,9 @@ import org.bson.Document;
 
 public class Facultad {
     private final Database database;
+    
     private final int facultadId;
-    private List<Dependencia> dependencia;
+    private List<Dependencia> dependencias;
     private String descripcion;
 
     public Facultad(int facultadId) {
@@ -30,9 +31,9 @@ public class Facultad {
         return descripcion;
     }
 
-    public List<Dependencia> listarDependencias() {
+    public List<Dependencia> getDependencias() {
         
-        return dependencia;
+        return dependencias;
     }
     
     @Override
