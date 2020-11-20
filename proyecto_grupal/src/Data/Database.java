@@ -6,7 +6,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 
-public class Database {
+public final class Database {
     private final MongoClientURI uri;
     private final String user;
     private final String password;

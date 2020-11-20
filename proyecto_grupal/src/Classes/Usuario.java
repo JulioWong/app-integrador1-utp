@@ -5,12 +5,12 @@ import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
-// Hola Mundo
+
 public class Usuario {
     private final Database database;
-    private final String collection;
     
     private int userId;
+    private Facultad facultad;
     private final String usuario;
     private final String contrasena;
 
@@ -18,15 +18,18 @@ public class Usuario {
         this.usuario = usuario;
         this.contrasena = DigestUtils.md5Hex(contrasena);
         this.database = new Database();
-        this.collection = "user";
     }
 
     public int getUserId() {
         return userId;
     }
+
+    public Facultad getFacultad() {
+        return facultad;
+    }
     
     private Document getUserByLogin(String usuario, String password) {
-        return this.database.getMongoCollection(this.collection)
+        return this.database.getMongoCollection(Utils.Constant.userCollection)
             .find(Filters.and(
                 eq("user", usuario), 
                 eq("password", password)
@@ -39,6 +42,8 @@ public class Usuario {
             Document data = this.getUserByLogin(this.usuario, this.contrasena);
             if (!data.get("userId").toString().equals("")) {
                 this.userId = Integer.parseInt(data.get("userId").toString());
+                this.facultad = new Facultad(
+                        Integer.parseInt(data.get("facultadId").toString()));
                 return true;
             }
             return false;

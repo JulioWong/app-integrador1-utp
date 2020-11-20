@@ -5,6 +5,7 @@
  */
 package Views;
 
+import Classes.Facultad;
 import Views.Equipos.jPanelListEquipo;
 import Views.Equipos.jPanelNewEquipo;
 import Views.Equipos.jPanelSearchEquipo;
@@ -26,9 +27,11 @@ public class formMain extends javax.swing.JFrame {
     /**
      * Creates new form formMain
      */
-    public formMain(int userId) {
+    public formMain(int userId, Facultad facultad) {
         
         System.out.println(userId);
+        System.out.println(facultad.getFacultadId());
+        System.out.println(facultad.getDescripcion());
         initComponents();
         setLocationRelativeTo(null);  
         setLayout(new FlowLayout());
