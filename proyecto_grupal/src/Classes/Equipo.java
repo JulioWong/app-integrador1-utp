@@ -10,6 +10,38 @@ package Classes;
  * @author GUSTAVO
  */
 public abstract class Equipo {
+
+    public String getCodigoPatrimonial() {
+        return CodigoPatrimonial;
+    }
+
+    public void setCodigoPatrimonial(String CodigoPatrimonial) {
+        this.CodigoPatrimonial = CodigoPatrimonial;
+    }
+
+    public String getModelo() {
+        return Modelo;
+    }
+
+    public void setModelo(String Modelo) {
+        this.Modelo = Modelo;
+    }
+
+    public String getMarca() {
+        return Marca;
+    }
+
+    public void setMarca(String Marca) {
+        this.Marca = Marca;
+    }
+
+    public String getEstado() {
+        return Estado;
+    }
+
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
+    }
     
     private String CodigoPatrimonial;
     private String Modelo;

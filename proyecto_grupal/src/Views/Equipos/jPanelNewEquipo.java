@@ -5,6 +5,8 @@
  */
 package Views.Equipos;
 
+import Classes.Equipo;
+import Classes.Monitor;
 import javax.swing.JComboBox;
 
 /**
@@ -163,6 +165,14 @@ public class jPanelNewEquipo extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        Monitor equipo=  new Monitor();
+        equipo.setCodigoPatrimonial("");
+        equipo.setEstado("");
+        equipo.setMarca("");
+        equipo.setModelo("");
+        equipo.setResolucion("");
+        equipo.setTipoPantalla("LCD");
+        equipo.GuardarEquipo();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEquipoItemStateChanged

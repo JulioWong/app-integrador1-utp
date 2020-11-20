@@ -33,4 +33,13 @@ public final class Database {
     public MongoCollection<Document> getMongoCollection(String table) {
         return this.mongoDatabase.getCollection(table);
     }
+    public boolean insertMongoDocument(Document doc, String Collection){
+        try{
+            MongoCollection<Document> collection = this.mongoDatabase.getCollection(Collection);
+            collection.insertOne(doc);    
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+    }
 }
