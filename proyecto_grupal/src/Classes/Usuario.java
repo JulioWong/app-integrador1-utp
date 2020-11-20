@@ -27,16 +27,7 @@ public class Usuario {
     public Facultad getFacultad() {
         return facultad;
     }
-    
-    private Document getUserByLogin(String usuario, String password) {
-        return this.database.getMongoCollection(Utils.Constant.userCollection)
-            .find(Filters.and(
-                eq("user", usuario), 
-                eq("password", password)
-            )
-        ).first();
-    }
-    
+      
     public Boolean login() {
         try {
             Document data = this.getUserByLogin(this.usuario, this.contrasena);
@@ -50,5 +41,14 @@ public class Usuario {
         } catch (Exception e) {
             return false;
         }
+    }
+    
+    private Document getUserByLogin(String usuario, String password) {
+        return this.database.getMongoCollection(Utils.Constant.userCollection)
+            .find(Filters.and(
+                eq("user", usuario), 
+                eq("password", password)
+            )
+        ).first();
     }
 }
