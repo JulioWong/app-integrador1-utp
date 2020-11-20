@@ -60,7 +60,7 @@ public class formNew extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Nueva oficina");
+        setTitle("Dependencia");
 
         jLabel1.setText("Descripción");
 
@@ -112,7 +112,7 @@ public class formNew extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Oficinas");
+        jMenu2.setText("Dependencia");
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Transferencia");

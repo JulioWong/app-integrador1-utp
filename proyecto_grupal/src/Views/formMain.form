@@ -37,7 +37,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Oficinas"/>
+            <Property name="text" type="java.lang.String" value="Dependencias"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
