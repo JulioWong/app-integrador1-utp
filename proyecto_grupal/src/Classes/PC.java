@@ -1,29 +1,44 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Classes;
 
-/**
- *
- * @author GUSTAVO
- */
 public class PC extends  Equipo{
-    private String Procesador; // INTEL O AMD 
-    private String DiscoDuro; // GB
-    private String Ram; // GB
+    private String procesador; // INTEL O AMD 
+    private String discoDuro; // GB
+    private String ram; // GB
+
+    public String getProcesador() {
+        return procesador;
+    }
+
+    public void setProcesador(String procesador) {
+        this.procesador = procesador;
+    }
+
+    public String getDiscoDuro() {
+        return discoDuro;
+    }
+
+    public void setDiscoDuro(String discoDuro) {
+        this.discoDuro = discoDuro;
+    }
+
+    public String getRam() {
+        return ram;
+    }
+
+    public void setRam(String ram) {
+        this.ram = ram;
+    }
 
     public PC() {
     }
 
     @Override
-    public void ObtenerInformacion() {
+    public void obtenerInformacion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public void GuardarEquipo() {
+    public void guardarEquipo() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

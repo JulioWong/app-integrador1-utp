@@ -9,7 +9,7 @@ import org.bson.Document;
 public class Usuario {
     private final Database database;
     
-    private int userId;
+    private int usuarioId;
     private Facultad facultad;
     private final String usuario;
     private final String contrasena;
@@ -20,8 +20,8 @@ public class Usuario {
         this.database = new Database();
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUsuarioId() {
+        return usuarioId;
     }
 
     public Facultad getFacultad() {
@@ -32,7 +32,7 @@ public class Usuario {
         try {
             Document data = this.getUserByLogin(this.usuario, this.contrasena);
             if (!data.get("userId").toString().equals("")) {
-                this.userId = Integer.parseInt(data.get("userId").toString());
+                this.usuarioId = Integer.parseInt(data.get("userId").toString());
                 this.facultad = new Facultad(
                         Integer.parseInt(data.get("facultadId").toString()));
                 return true;

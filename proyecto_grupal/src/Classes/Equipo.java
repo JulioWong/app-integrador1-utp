@@ -1,26 +1,69 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Classes;
 
-/**
- *
- * @author GUSTAVO
- */
+import java.util.List;
 public abstract class Equipo {
 
+    private int equipoId;
     private String codigoPatrimonial;
     private String modelo;
     private String marca;
+    private Boolean fechaRegistro;
+    private Boolean observaciones;
     private Boolean estado;
-    
-    
-   
-    public void obtenerMovimientos(){
-        
+    private List<DocumentoTransferencia> transferencias;
+
+    public int getEquipoId() {
+        return equipoId;
     }
-    public abstract void obtenerInformacion();
+
+    public String getCodigoPatrimonial() {
+        return codigoPatrimonial;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public Boolean getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public Boolean getObservaciones() {
+        return observaciones;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public List<DocumentoTransferencia> getTransferencias() {
+        return transferencias;
+    }
+
+    public void setCodigoPatrimonial(String codigoPatrimonial) {
+        this.codigoPatrimonial = codigoPatrimonial;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setObservaciones(Boolean observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+    
     public abstract void guardarEquipo();
+    public abstract void obtenerInformacion();
 }
