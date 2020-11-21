@@ -127,7 +127,7 @@ public class formTransfer extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Códigos a transferir", jPanel1);
 
-        jLabel4.setText("Código transferencia");
+        jLabel4.setText("Documento de autorización");
 
         jMenu1.setText("Equipos");
 
@@ -147,7 +147,7 @@ public class formTransfer extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Oficinas");
+        jMenu2.setText("Dependencia");
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Transferencia");

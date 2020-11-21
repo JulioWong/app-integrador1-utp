@@ -1,55 +1,69 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Classes;
 
-/**
- *
- * @author GUSTAVO
- */
+import java.util.List;
 public abstract class Equipo {
 
-    public String getCodigoPatrimonial() {
-        return CodigoPatrimonial;
+    private int equipoId;
+    private String codigoPatrimonial;
+    private String modelo;
+    private String marca;
+    private Boolean fechaRegistro;
+    private Boolean observaciones;
+    private Boolean estado;
+    private List<DocumentoTransferencia> transferencias;
+
+    public int getEquipoId() {
+        return equipoId;
     }
 
-    public void setCodigoPatrimonial(String CodigoPatrimonial) {
-        this.CodigoPatrimonial = CodigoPatrimonial;
+    public String getCodigoPatrimonial() {
+        return codigoPatrimonial;
     }
 
     public String getModelo() {
-        return Modelo;
-    }
-
-    public void setModelo(String Modelo) {
-        this.Modelo = Modelo;
+        return modelo;
     }
 
     public String getMarca() {
-        return Marca;
+        return marca;
     }
 
-    public void setMarca(String Marca) {
-        this.Marca = Marca;
+    public Boolean getFechaRegistro() {
+        return fechaRegistro;
     }
 
-    public String getEstado() {
-        return Estado;
+    public Boolean getObservaciones() {
+        return observaciones;
     }
 
-    public void setEstado(String Estado) {
-        this.Estado = Estado;
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public List<DocumentoTransferencia> getTransferencias() {
+        return transferencias;
+    }
+
+    public void setCodigoPatrimonial(String codigoPatrimonial) {
+        this.codigoPatrimonial = codigoPatrimonial;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public void setObservaciones(Boolean observaciones) {
+        this.observaciones = observaciones;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
     
-    private String CodigoPatrimonial;
-    private String Modelo;
-    private String Marca;
-    private String Estado;
-    public void ObtenerMovimientos(){
-        
-    }
-    public abstract void ObtenerInformacion();
-    public abstract void GuardarEquipo();
+    public abstract void guardarEquipo();
+    public abstract void obtenerInformacion();
 }

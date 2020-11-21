@@ -31,7 +31,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Oficinas"/>
+            <Property name="text" type="java.lang.String" value="Dependencia"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
@@ -266,7 +266,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="C&#xf3;digo transferencia"/>
+        <Property name="text" type="java.lang.String" value="Documento de autorizaci&#xf3;n"/>
       </Properties>
     </Component>
   </SubComponents>

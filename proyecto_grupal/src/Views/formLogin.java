@@ -95,7 +95,7 @@ public class formLogin extends javax.swing.JFrame {
         Usuario usuario = new Usuario(txtUsuario.getText(), 
                 txtContrasena.getText());    
         if(usuario.login()) {
-            new formMain(usuario.getUserId(), usuario.getFacultad())
+            new formMain(usuario.getUsuarioId(), usuario.getFacultad())
                     .setVisible(true);
             this.setVisible(false);
         } else {

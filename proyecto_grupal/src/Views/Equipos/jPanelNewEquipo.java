@@ -167,12 +167,12 @@ public class jPanelNewEquipo extends javax.swing.JPanel {
         // TODO add your handling code here:
         Monitor equipo=  new Monitor();
         equipo.setCodigoPatrimonial("");
-        equipo.setEstado("");
+        equipo.setEstado(true);
         equipo.setMarca("");
         equipo.setModelo("");
         equipo.setResolucion("");
         equipo.setTipoPantalla("LCD");
-        equipo.GuardarEquipo();
+        equipo.guardarEquipo();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEquipoItemStateChanged
