@@ -171,8 +171,8 @@ public class jPanelNewEquipo extends javax.swing.JPanel {
         equipo.setMarca("");
         equipo.setModelo("");
         equipo.setResolucion("");
-        equipo.setTipoPantalla("LCD");
-        equipo.guardarEquipo();
+        equipo.setTipoPantalla("JSP");
+        equipo.guardar();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void cboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEquipoItemStateChanged

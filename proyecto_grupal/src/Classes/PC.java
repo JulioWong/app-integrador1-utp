@@ -37,8 +37,11 @@ public class PC extends  Equipo{
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+   
+  
+
     @Override
-    public void guardarEquipo() {
+    public void guardar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     

@@ -24,9 +24,8 @@ public class Impresora extends Equipo{
         this.impresionColor = impresionColor;
     }
 
-    
     @Override
-    public void guardarEquipo() {
+    public void guardar() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -34,6 +33,6 @@ public class Impresora extends Equipo{
     public void obtenerInformacion() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-        
+
+   
 }

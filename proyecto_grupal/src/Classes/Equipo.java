@@ -1,7 +1,7 @@
 package Classes;
 
 import java.util.List;
-public abstract class Equipo {
+public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtener{
 
     private int equipoId;
     private String codigoPatrimonial;
@@ -64,6 +64,4 @@ public abstract class Equipo {
         this.estado = estado;
     }
     
-    public abstract void guardarEquipo();
-    public abstract void obtenerInformacion();
 }
