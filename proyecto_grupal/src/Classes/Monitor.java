@@ -29,9 +29,14 @@ public class Monitor extends Equipo{
     }
 
     
+
     @Override
-    public void guardarEquipo() {
-        Database DB = new Database();
+    public void obtenerInformacion() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void guardar() {
         Document equipo = new Document("_id",new ObjectId());
         equipo.append("CodigoPatrimonial", getCodigoPatrimonial());
         equipo.append("Modelo", getModelo());
@@ -39,12 +44,7 @@ public class Monitor extends Equipo{
         equipo.append("Estado", getEstado());
         equipo.append("Resolucion", resolucion);
         equipo.append("TipoPantalla", tipoPantalla);
-        DB.insertMongoDocument(equipo, "Equipo");
-    }
-
-    @Override
-    public void obtenerInformacion() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        database.insertMongoDocument(equipo, "Equipo");
     }
     
 }
