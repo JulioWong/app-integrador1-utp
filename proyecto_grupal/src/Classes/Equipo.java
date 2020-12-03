@@ -1,5 +1,7 @@
 package Classes;
 
+import Interfaces.MantenimientoObtener;
+import Interfaces.MantenimientoGuardar;
 import java.util.List;
 public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtener{
 

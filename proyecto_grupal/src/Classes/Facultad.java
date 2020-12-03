@@ -1,17 +1,18 @@
 package Classes;
 
 import Data.Database;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
-import java.util.List;
+import java.util.ArrayList;
 import org.bson.Document;
 
 public class Facultad {
     private final Database database;
     
     private final int facultadId;
-    private List<Dependencia> dependencias;
-    private String descripcion;
+    private ArrayList<Dependencia> dependencias;
+    private final String descripcion;
 
     public Facultad(int facultadId) {
         this.database = new Database();
@@ -31,8 +32,24 @@ public class Facultad {
         return descripcion;
     }
 
-    public List<Dependencia> getDependencias() {
+    public void setDependencias(ArrayList<Dependencia> dependencias) {
+        this.dependencias = dependencias;
+    }
+
+    public ArrayList<Dependencia> getDependencias() {
+        FindIterable<Document> data = this.database.getMongoCollection
+                (Utils.Constant.dependenciaCollection).find(Filters.and(
+                    eq("facultadId", facultadId)
+                ));
         
+        ArrayList<Dependencia> allDependencias = new ArrayList<>();
+        for (Document document : data) {
+            Dependencia dep = new Dependencia();
+            dep.setDependenciaId(document.getObjectId("_id").toString());
+            dep.setDescripcion(document.get("description").toString());
+            allDependencias.add(dep);
+        }
+        setDependencias(allDependencias);
         return dependencias;
     }
     
