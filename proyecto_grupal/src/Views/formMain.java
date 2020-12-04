@@ -84,7 +84,7 @@ public class formMain extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Oficinas");
+        jMenu2.setText("Dependencias");
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Transferencia");
