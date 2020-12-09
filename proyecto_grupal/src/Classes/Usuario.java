@@ -1,10 +1,12 @@
 package Classes;
 
 import Data.Database;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public class Usuario {
     private final Database database;
@@ -16,6 +18,13 @@ public class Usuario {
 
     public Usuario(String usuario, String contrasena) {
         this.usuario = usuario;
+        this.contrasena = DigestUtils.md5Hex(contrasena);
+        this.database = new Database();
+    }
+
+    public Usuario(int usuarioId, String contrasena) {
+        this.usuarioId = usuarioId;
+        this.usuario = "";
         this.contrasena = DigestUtils.md5Hex(contrasena);
         this.database = new Database();
     }
@@ -50,5 +59,32 @@ public class Usuario {
                 eq("password", password)
             )
         ).first();
+    }
+    public String cambiarContrasena(String nuevaContrasena){
+        try {
+            Document data = this.database.getMongoCollection(Utils.Constant.userCollection)
+            .find(Filters.and(
+                eq("userId", String.valueOf(usuarioId)), 
+                eq("password", contrasena)
+                )
+            ).first();
+            if(data == null){
+                return "Contraseña antigua proporcionada no coincide";
+            }
+            Bson updateValue  = new Document("password",DigestUtils.md5Hex(nuevaContrasena));
+            
+            Bson updateOperation  = new Document("$set",updateValue);
+            
+            Boolean resultUpdate = this.database.updateMongoDocument(data,updateOperation, Utils.Constant.userCollection);
+            
+            if(resultUpdate){
+                return null;    
+            }else{
+                return "No se pudo actualizar contraseña";
+            }
+            
+        } catch (Exception e) {
+            return "Error al tratar de cambiar contraseña";
+        }
     }
 }

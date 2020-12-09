@@ -40,7 +40,8 @@ public class PC extends  Equipo{
 
     @Override
     public void obtenerInformacion() {
-         Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
+         Document oData = this.database.getMongoCollection(
+                 Utils.Constant.equiposCollection)
          .find(Filters.and(
              eq("codigoPatrimonial", this.getCodigoPatrimonial()),
              eq("claseEquipo", this.getClaseEquipo())

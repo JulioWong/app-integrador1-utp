@@ -11,6 +11,8 @@ import Views.Dependencias.jPanelNewDependencia;
 import Views.Equipos.jPanelListEquipo;
 import Views.Equipos.jPanelNewEquipo;
 import Views.Equipos.jPanelSearchEquipo;
+import Views.Transferencias.jPanelRegisterTransferencias;
+import Views.Usuarios.jPanelChangePwd;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -22,10 +24,11 @@ public class formMain extends javax.swing.JFrame {
     private String NOMBRE_SISTEMA= "Sistema Inventario";
     private Facultad facultad;
     private ArrayList<Dependencia> dependencias;
+    private int userId;
     
     public formMain(int userId, Facultad facu) {
         
-        System.out.println(userId);
+        this.userId = userId;
         facultad = facu;
         
         initComponents();
@@ -45,6 +48,9 @@ public class formMain extends javax.swing.JFrame {
         jMenuBusquedaEquipo = new javax.swing.JMenuItem();
         jMenuDependencias = new javax.swing.JMenu();
         JMenuTransferencia = new javax.swing.JMenu();
+        jmiTranferenciaRegistrar = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jmiChangePwd = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -85,7 +91,28 @@ public class formMain extends javax.swing.JFrame {
         jMenuInventario.add(jMenuDependencias);
 
         JMenuTransferencia.setText("Transferencia");
+
+        jmiTranferenciaRegistrar.setText("Registrar");
+        jmiTranferenciaRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiTranferenciaRegistrarActionPerformed(evt);
+            }
+        });
+        JMenuTransferencia.add(jmiTranferenciaRegistrar);
+
         jMenuInventario.add(JMenuTransferencia);
+
+        jMenu1.setText("Mi usuario");
+
+        jmiChangePwd.setText("Cambiar Contraseña");
+        jmiChangePwd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiChangePwdActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmiChangePwd);
+
+        jMenuInventario.add(jMenu1);
 
         setJMenuBar(jMenuInventario);
 
@@ -118,6 +145,16 @@ public class formMain extends javax.swing.JFrame {
     private void jMenuDependenciasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuDependenciasMouseClicked
         getPanel(new jPanelNewDependencia(facultad), "Dependencias");
     }//GEN-LAST:event_jMenuDependenciasMouseClicked
+
+    private void jmiChangePwdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiChangePwdActionPerformed
+        // TODO add your handling code here:
+        getPanel(new jPanelChangePwd(this.userId),"Cambio de contraseña");
+    }//GEN-LAST:event_jmiChangePwdActionPerformed
+
+    private void jmiTranferenciaRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTranferenciaRegistrarActionPerformed
+        // TODO add your handling code here:
+        getPanel(new jPanelRegisterTransferencias(),"Registro de transferencias");
+    }//GEN-LAST:event_jmiTranferenciaRegistrarActionPerformed
     
     private void closeAllPanels(){
         try{
@@ -139,10 +176,13 @@ public class formMain extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem JMenuNewEquipo;
     private javax.swing.JMenu JMenuTransferencia;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuItem jMenuBusquedaEquipo;
     private javax.swing.JMenu jMenuDependencias;
     private javax.swing.JMenu jMenuEquipos;
     private javax.swing.JMenuBar jMenuInventario;
     private javax.swing.JMenuItem jMenuListarEquipo;
+    private javax.swing.JMenuItem jmiChangePwd;
+    private javax.swing.JMenuItem jmiTranferenciaRegistrar;
     // End of variables declaration//GEN-END:variables
 }

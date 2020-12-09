@@ -1,10 +1,12 @@
 package Data;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 
 public final class Database {
     private final MongoClientURI uri;
@@ -37,6 +39,15 @@ public final class Database {
         try{
             MongoCollection<Document> collection = this.mongoDatabase.getCollection(Collection);
             collection.insertOne(doc);    
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+    }
+    public boolean updateMongoDocument(Document query, Bson updateObject,String Collection){
+        try{
+            MongoCollection<Document> collection = this.mongoDatabase.getCollection(Collection);
+            collection.updateOne(query,updateObject);    
             return true;
         }catch(Exception ex){
             return false;

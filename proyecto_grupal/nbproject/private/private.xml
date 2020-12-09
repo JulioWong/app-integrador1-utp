@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Views/Equipos/jPanelSearchEquipo.java</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Views/Equipos/jPanelNewEquipo.java</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Views/Equipos/jPanelListEquipo.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Dependencia.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Equipo.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Views/formMain.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/PC.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Impresora.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Views/formLogin.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Monitor.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Data/Database.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Teclado.java</file>
+            <file>file:/C:/Users/GUSTAVO/Documents/GitHub/integrador1/proyecto_grupal/src/Classes/Proyector.java</file>
         </group>
     </open-files>
 </project-private>
