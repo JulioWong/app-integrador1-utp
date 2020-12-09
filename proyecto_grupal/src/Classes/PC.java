@@ -1,6 +1,7 @@
 package Classes;
 
 import static Interfaces.MantenimientoGuardar.database;
+import Utils.StringBuilderPlus;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
@@ -15,6 +16,7 @@ public class PC extends  Equipo{
         return procesador;
     }
 
+    @Override
     public void setProcesador(String procesador) {
         this.procesador = procesador;
     }
@@ -23,6 +25,7 @@ public class PC extends  Equipo{
         return discoDuro;
     }
 
+    @Override
     public void setDiscoDuro(String discoDuro) {
         this.discoDuro = discoDuro;
     }
@@ -31,6 +34,7 @@ public class PC extends  Equipo{
         return ram;
     }
 
+    @Override
     public void setRam(String ram) {
         this.ram = ram;
     }
@@ -84,7 +88,7 @@ public class PC extends  Equipo{
         equipo.append("marca", getMarca());
         equipo.append("estado", getEstado());
         equipo.append("observaciones", getObservaciones());
-        equipo.append("ubicacionActual", getUbicacionActual());
+        equipo.append("ubicacionActual", getDependencia().getDescripcion());
         equipo.append("procesador", procesador);
         equipo.append("discoDuro", discoDuro);
         equipo.append("ram", ram);
@@ -92,5 +96,17 @@ public class PC extends  Equipo{
         return null;
     }
 
-    
+    @Override
+    public String imprimirInformacion() {
+        StringBuilderPlus sbInformacion = new StringBuilderPlus();
+        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Marca: "+this.getMarca());
+        sbInformacion.appendLine("Modelo: "+this.getModelo());
+        sbInformacion.appendLine("Procesador: "+this.getProcesador());
+        sbInformacion.appendLine("Capacidad de disco: "+this.getDiscoDuro());
+        sbInformacion.appendLine("Capacidad de Ram: "+this.getRam());
+        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());   
+        return sbInformacion.toString();
+    }
 }

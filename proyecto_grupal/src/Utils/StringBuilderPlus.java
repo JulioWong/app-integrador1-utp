@@ -1,17 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Utils;
 
-/**
- *
- * @author GUSTAVO
- */
 public class StringBuilderPlus {
 
-       private StringBuilder sb;
+       private final StringBuilder sb;
 
        public StringBuilderPlus(){
             sb = new StringBuilder();
@@ -27,6 +18,7 @@ public class StringBuilderPlus {
            sb.append(str != null ? str : "").append(System.getProperty("line.separator"));
        }
 
+       @Override
        public String toString()
        {
            return sb.toString();

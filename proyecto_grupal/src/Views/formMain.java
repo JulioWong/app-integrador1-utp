@@ -153,7 +153,7 @@ public class formMain extends javax.swing.JFrame {
 
     private void jmiTranferenciaRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiTranferenciaRegistrarActionPerformed
         // TODO add your handling code here:
-        getPanel(new jPanelRegisterTransferencias(),"Registro de transferencias");
+        getPanel(new jPanelRegisterTransferencias(facultad),"Registro de transferencias");
     }//GEN-LAST:event_jmiTranferenciaRegistrarActionPerformed
     
     private void closeAllPanels(){

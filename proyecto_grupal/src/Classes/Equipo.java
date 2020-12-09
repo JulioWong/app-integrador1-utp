@@ -2,7 +2,11 @@ package Classes;
 
 import Interfaces.MantenimientoObtener;
 import Interfaces.MantenimientoGuardar;
-import java.util.List;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
+import java.util.ArrayList;
+import org.bson.Document;
 public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtener{
 
     private int equipoId;
@@ -12,15 +16,11 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
     private String marca;
     private String fechaRegistro;
     private String observaciones;
-    private String ubicacionActual;
     private Boolean estado;
-    private List<DocumentoTransferencia> transferencias;
+    private ArrayList<DocumentoTransferencia> transferencias = new ArrayList<>();;
+    private Dependencia dependencia;
 
     public Equipo() {
-    }
-
-    public String getUbicacionActual() {
-        return ubicacionActual;
     }
 
     public String getClaseEquipo() {
@@ -59,7 +59,41 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
         return estado;
     }
 
-    public List<DocumentoTransferencia> getTransferencias() {
+    public Dependencia getDependencia() {
+        return dependencia;
+    }
+
+    public void setDependencia(Dependencia dependencia) {
+        this.dependencia = dependencia;
+    }
+
+    public ArrayList<DocumentoTransferencia> getTransferencias() {
+        
+        try {
+            FindIterable<Document> data = this.database.getMongoCollection
+                (Utils.Constant.documentoTransferenciaCollection).find(Filters.and(
+                    eq("codigoPatrimonial", this.codigoPatrimonial)
+                ));
+            
+            for (Document document : data) {
+                DocumentoTransferencia oTransferencia = 
+                        new DocumentoTransferencia();
+                
+                oTransferencia.setDependenciaOrigen(
+                    new Dependencia(document.getString("dependenciaOrigen")));
+                oTransferencia.setDependenciaDestino(
+                    new Dependencia(document.getString("dependenciaDestino")));
+                oTransferencia.setDocumentoAutorizacion(
+                        document.getString("documentoAutorizacion"));
+                
+                ArrayList<Equipo> equipos = new ArrayList<>();
+                equipos.add(this);
+                oTransferencia.setEquipos(equipos);
+                oTransferencia.setMotivo(document.getString("motivo"));
+                
+                this.transferencias.add(oTransferencia);
+            }
+        } catch (Exception e) { }
         return transferencias;
     }
 
@@ -74,9 +108,7 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
     public void setMarca(String marca) {
         this.marca = marca;
     }
-    public void setUbicacionActual(String ubicacionActual) {
-        this.ubicacionActual = ubicacionActual;
-    }
+
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
     }
@@ -84,6 +116,9 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
+    
+    public abstract String imprimirInformacion();
+    
     public String validar(){
         if(this.codigoPatrimonial.isEmpty()){
             return "Ingrese codigo patrimonial";
@@ -94,10 +129,61 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
         if(this.modelo.isEmpty()){
             return "Ingrese Modelo";
         }
-        if(this.ubicacionActual.isEmpty()){
+        if(this.dependencia.getDescripcion().isEmpty()){
             return "Seleccione ubicación actual.";
         }
         return null;
+    }
+
+    
+    
+    
+    public void setTipo(String toString) {
+        
+    }
+
+    public void setImpresionColor(Boolean impresionColor) {
+        
+    }
+
+    public void setResolucion(String text) {
+        
+    }
+
+    public void setTipoPantalla(String toString) {
+        
+    }
+
+    public void setProcesador(String text) {
+        
+    }
+
+    public void setDiscoDuro(String text) {
+        
+    }
+
+    public void setRam(String text) {
+        
+    }
+
+    public void setContraste(String toString) {
+        
+    }
+
+    public void setTecnologia(String toString) {
+        
+    }
+
+    public void setConexion(String toString) {
+        
+    }
+
+    public void setTipoTeclado(String toString) {
+        
+    }
+
+    public void setDistribucion(String toString) {
+        
     }
     
 }

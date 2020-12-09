@@ -1,16 +1,19 @@
 
 package Classes;
 
-import java.util.List;
+import Interfaces.MantenimientoGuardar;
+import static Interfaces.MantenimientoGuardar.database;
+import java.util.ArrayList;
+import org.bson.Document;
+import org.bson.types.ObjectId;
 
-public class DocumentoTransferencia {
-
+public class DocumentoTransferencia implements MantenimientoGuardar{
     
     public int transferenciaId;
     public String documentoAutorizacion;
     public Dependencia dependenciaOrigen;
     public Dependencia dependenciaDestino;
-    public List<Equipo> equipos;
+    public ArrayList<Equipo> equipos = new ArrayList<>();
     public Usuario usuario;
     public String motivo;
     public String fecha;
@@ -30,7 +33,7 @@ public class DocumentoTransferencia {
         this.dependenciaDestino = dependenciaDestino;
     }
 
-    public void setEquipos(List<Equipo> equipos) {
+    public void setEquipos(ArrayList<Equipo> equipos) {
         this.equipos = equipos;
     }
 
@@ -58,7 +61,7 @@ public class DocumentoTransferencia {
         return dependenciaDestino;
     }
 
-    public List<Equipo> getEquipos() {
+    public ArrayList<Equipo> getEquipos() {
         return equipos;
     }
 
@@ -74,15 +77,32 @@ public class DocumentoTransferencia {
         return fecha;
     }
     
-    public void obtenerDocumentoTransferencia(){
-        
+    public void agregarEquipo(Equipo equipo){
+        this.equipos.add(equipo);
     }
-    
-    public void agregarEquipo(){
-        
-    }
-    
-    public void guardarDocumentoTransferencia(){
-        
+
+    @Override
+    public String guardar() {
+        ArrayList<Equipo> eq = getEquipos();
+        for (int i = 0; i < eq.size(); i++) {
+            Document documentoTransferencia = new Document("_id", new ObjectId());
+            documentoTransferencia.append("dependenciaOrigen", 
+                getDependenciaOrigen().getDescripcion());
+            documentoTransferencia.append("dependenciaDestino", 
+                    getDependenciaDestino().getDescripcion());
+            documentoTransferencia.append("documentoAutorizacion", 
+                    getDocumentoAutorizacion());
+            documentoTransferencia.append("codigoPatrimonial", 
+                eq.get(i).getCodigoPatrimonial());
+            documentoTransferencia.append("claseEquipo", 
+                eq.get(i).getClaseEquipo());
+            documentoTransferencia.append("modelo", 
+                eq.get(i).getModelo());
+            documentoTransferencia.append("motivo", 
+                getMotivo());
+            database.insertMongoDocument(documentoTransferencia, 
+                    Utils.Constant.documentoTransferenciaCollection);
+        }
+        return "";
     }
 }

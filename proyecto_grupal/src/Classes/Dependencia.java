@@ -11,11 +11,15 @@ import org.bson.types.ObjectId;
 
 public class Dependencia implements MantenimientoGuardar{
     private String dependenciaId;
-    private ArrayList<Equipo> equipos;
+    private ArrayList<Equipo> equipos = new ArrayList<>();
     private String descripcion;
     private Facultad facultad;
 
     public Dependencia() {
+    }
+    
+    public Dependencia(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getDependenciaId() {
@@ -26,27 +30,23 @@ public class Dependencia implements MantenimientoGuardar{
         this.dependenciaId = dependenciaId;
     }
 
-    public ArrayList<Equipo> getEquipos() {
-         try {
-             FindIterable<Document> data = this.database.getMongoCollection
+    public ArrayList<Equipo> getEquipos(Equipo oEquipo) {
+        try {
+            FindIterable<Document> data = this.database.getMongoCollection
                 (Utils.Constant.equiposCollection).find(Filters.and(
                     eq("ubicacionActual", descripcion)
                 ));
-        
-            ArrayList<Equipo> allEquipos = new ArrayList<>();
             for (Document document : data) {
-                Impresora oEquipo = new Impresora();
                 oEquipo.setCodigoPatrimonial(document.getString("codigoPatrimonial"));
                 oEquipo.setClaseEquipo(document.getString("claseEquipo"));
                 oEquipo.setEstado(document.getBoolean("estado"));
-                oEquipo.setUbicacionActual(document.getString("ubicacionActual"));
-                allEquipos.add(oEquipo);
+                Dependencia dependencia = new Dependencia();
+                dependencia.setDescripcion(document.getString("ubicacionActual"));
+                oEquipo.setDependencia(dependencia);
+                this.equipos.add(oEquipo);
             }
-            equipos=allEquipos;
-            return equipos;
-        } catch (Exception e) {
-            return equipos;
-        }
+        } catch (Exception e) {}
+        return equipos;
     }
 
     public String getDescripcion() {
@@ -74,5 +74,9 @@ public class Dependencia implements MantenimientoGuardar{
         return "";
     }
 
+    @Override
+    public String toString() {
+        return this.descripcion;
+    }
   
 }

@@ -1,6 +1,7 @@
 package Classes;
 
 import static Interfaces.MantenimientoGuardar.database;
+import Utils.StringBuilderPlus;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
@@ -18,6 +19,7 @@ public class Teclado extends Equipo{
         return tipoTeclado;
     }
 
+    @Override
     public void setTipoTeclado(String tipoTeclado) {
         this.tipoTeclado = tipoTeclado;
     }
@@ -26,6 +28,7 @@ public class Teclado extends Equipo{
         return conexion;
     }
 
+    @Override
     public void setConexion(String conexion) {
         this.conexion = conexion;
     }
@@ -34,6 +37,7 @@ public class Teclado extends Equipo{
         return distribucion;
     }
 
+    @Override
     public void setDistribucion(String distribucion) {
         this.distribucion = distribucion;
     }
@@ -76,7 +80,7 @@ public class Teclado extends Equipo{
         equipo.append("marca", getMarca());
         equipo.append("estado", getEstado());
         equipo.append("observaciones", getObservaciones());
-        equipo.append("ubicacionActual", getUbicacionActual());
+        equipo.append("ubicacionActual", getDependencia().getDescripcion());
         equipo.append("tipoTeclado", tipoTeclado);
         equipo.append("conexion", conexion);
         equipo.append("distribucion", distribucion);
@@ -84,4 +88,17 @@ public class Teclado extends Equipo{
         return null;
     }
 
+    @Override
+    public String imprimirInformacion() {
+        StringBuilderPlus sbInformacion = new StringBuilderPlus();
+        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Marca: "+this.getMarca());
+        sbInformacion.appendLine("Modelo: "+this.getModelo());
+        sbInformacion.appendLine("Tipo de teclado: "+this.getTipoTeclado());
+        sbInformacion.appendLine("Tipo conexión: "+this.getConexion());
+        sbInformacion.appendLine("Distribución de teclas: "+this.getDistribucion());
+        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());  
+        return sbInformacion.toString();
+    }
 }

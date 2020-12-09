@@ -1,6 +1,7 @@
 package Classes;
 
 import static Interfaces.MantenimientoGuardar.database;
+import Utils.StringBuilderPlus;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
@@ -18,6 +19,7 @@ public class Impresora extends Equipo{
         return tipo;
     }
 
+    @Override
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }
@@ -26,11 +28,10 @@ public class Impresora extends Equipo{
         return impresionColor;
     }
 
+    @Override
     public void setImpresionColor(Boolean impresionColor) {
         this.impresionColor = impresionColor;
     }
-
-  
 
     @Override
     public void obtenerInformacion() {
@@ -71,12 +72,23 @@ public class Impresora extends Equipo{
         equipo.append("marca", getMarca());
         equipo.append("estado", getEstado());
         equipo.append("observaciones", getObservaciones());
-        equipo.append("ubicacionActual", getUbicacionActual());
+        equipo.append("ubicacionActual", getDependencia().getDescripcion());
         equipo.append("tipo", tipo);
         equipo.append("impresionColor", impresionColor);
         database.insertMongoDocument(equipo, Utils.Constant.equiposCollection);
         return null;
     }
 
-   
+    @Override
+    public String imprimirInformacion() {
+        StringBuilderPlus sbInformacion = new StringBuilderPlus();
+        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Marca: "+this.getMarca());
+        sbInformacion.appendLine("Modelo: "+this.getModelo());
+        sbInformacion.appendLine("Tipo de impresora: "+this.getTipo());
+        sbInformacion.appendLine("Imprime a color: "+(this.getImpresionColor()?"SI":"NO"));
+        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());    
+        return sbInformacion.toString();
+    }
 }

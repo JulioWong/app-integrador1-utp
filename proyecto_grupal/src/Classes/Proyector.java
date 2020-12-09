@@ -1,6 +1,7 @@
 package Classes;
 
 import static Interfaces.MantenimientoGuardar.database;
+import Utils.StringBuilderPlus;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
@@ -12,14 +13,17 @@ public class Proyector extends Equipo {
     private String contraste; // NATIVO O DINAMICO
     private String resolucion; // ALTA O BAJA
 
+    @Override
     public void setTecnologia(String tecnologia) {
         this.tecnologia = tecnologia;
     }
 
+    @Override
     public void setContraste(String contraste) {
         this.contraste = contraste;
     }
 
+    @Override
     public void setResolucion(String resolucion) {
         this.resolucion = resolucion;
     }
@@ -75,7 +79,7 @@ public class Proyector extends Equipo {
         equipo.append("marca", getMarca());
         equipo.append("estado", getEstado());
         equipo.append("observaciones", getObservaciones());
-        equipo.append("ubicacionActual", getUbicacionActual());
+        equipo.append("ubicacionActual", getDependencia().getDescripcion());
         equipo.append("tecnologia", tecnologia);
         equipo.append("contraste", contraste);
         equipo.append("resolucion", resolucion);
@@ -83,5 +87,17 @@ public class Proyector extends Equipo {
         return null;
     }
     
-    
+    @Override
+    public String imprimirInformacion() {
+        StringBuilderPlus sbInformacion = new StringBuilderPlus();
+        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Marca: "+this.getMarca());
+        sbInformacion.appendLine("Modelo: "+this.getModelo());
+        sbInformacion.appendLine("Tecnología: "+this.getTecnologia());
+        sbInformacion.appendLine("Contraste: "+this.getContraste());
+        sbInformacion.appendLine("Resolución: "+this.getResolucion());
+        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());   
+        return sbInformacion.toString();
+    }
 }

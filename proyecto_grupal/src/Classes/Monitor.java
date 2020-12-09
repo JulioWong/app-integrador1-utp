@@ -1,6 +1,6 @@
 package Classes;
 
-import Data.Database;
+import Utils.StringBuilderPlus;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.bson.Document;
@@ -18,6 +18,7 @@ public class Monitor extends Equipo{
         return resolucion;
     }
 
+    @Override
     public void setResolucion(String resolucion) {
         this.resolucion = resolucion;
     }
@@ -26,6 +27,7 @@ public class Monitor extends Equipo{
         return tipoPantalla;
     }
 
+    @Override
     public void setTipoPantalla(String tipoPantalla) {
         this.tipoPantalla = tipoPantalla;
     }
@@ -69,12 +71,23 @@ public class Monitor extends Equipo{
         equipo.append("marca", getMarca());
         equipo.append("estado", getEstado());
         equipo.append("observaciones", getObservaciones());
-        equipo.append("ubicacionActual", getUbicacionActual());
+        equipo.append("ubicacionActual", getDependencia().getDescripcion());
         equipo.append("resolucion", resolucion);
         equipo.append("tipoPantalla", tipoPantalla);
         database.insertMongoDocument(equipo, Utils.Constant.equiposCollection);
         return null;
     }
 
-    
+    @Override
+    public String imprimirInformacion() {
+        StringBuilderPlus sbInformacion = new StringBuilderPlus();
+        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Marca: "+this.getMarca());
+        sbInformacion.appendLine("Modelo: "+this.getModelo());
+        sbInformacion.appendLine("Tipo de pantalla: "+this.getTipoPantalla());
+        sbInformacion.appendLine("Resolución: "+this.getResolucion());
+        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());    
+        return sbInformacion.toString();
+    }
 }
