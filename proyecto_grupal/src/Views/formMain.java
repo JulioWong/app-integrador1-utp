@@ -104,11 +104,11 @@ public class formMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuListarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuListarEquipoActionPerformed
-        getPanel(new jPanelListEquipo(), "Listado de equipos");
+        getPanel(new jPanelListEquipo(facultad), "Listado de equipos");
     }//GEN-LAST:event_jMenuListarEquipoActionPerformed
 
     private void JMenuNewEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMenuNewEquipoActionPerformed
-        getPanel(new jPanelNewEquipo(), "Nuevo Equipo");
+        getPanel(new jPanelNewEquipo(facultad), "Nuevo Equipo");
     }//GEN-LAST:event_JMenuNewEquipoActionPerformed
 
     private void jMenuBusquedaEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBusquedaEquipoActionPerformed
@@ -133,7 +133,7 @@ public class formMain extends javax.swing.JFrame {
         this.getContentPane().add(panel, BorderLayout.CENTER);
         this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.pack();
-        this.setSize(660, 500);
+        /*this.setSize(660, 500);*/
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

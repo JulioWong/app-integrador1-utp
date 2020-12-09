@@ -1,19 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views.Equipos;
 
-/**
- *
- * @author GUSTAVO
- */
+import Classes.Impresora;
+import Classes.Monitor;
+import Classes.PC;
+import Classes.Proyector;
+import Classes.Teclado;
+import Utils.StringBuilderPlus;
+import javax.swing.JOptionPane;
+
 public class jPanelSearchEquipo extends javax.swing.JPanel {
 
-    /**
-     * Creates new form jPanelSearchEquipo
-     */
+    private boolean isImpresora= false;
+    private Impresora oImpresora;
+    private boolean isMonitor = false;
+    private Monitor oMonitor;
+    private boolean isPC = false;
+    private PC oPC;
+    private boolean isProyector = false;
+    private Proyector oProyector;
+    private boolean isTeclado = false;
+    private Teclado oTeclado;
+    private  StringBuilderPlus sbInformacion;
     public jPanelSearchEquipo() {
         initComponents();
     }
@@ -29,22 +36,33 @@ public class jPanelSearchEquipo extends javax.swing.JPanel {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        lblInformacion = new javax.swing.JTextPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtCodigoPatrimonial = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
         cboEquipo = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+
+        lblInformacion.setEditable(false);
+        jScrollPane1.setViewportView(lblInformacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 496, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Información", jPanel1);
@@ -53,21 +71,21 @@ public class jPanelSearchEquipo extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 504, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 329, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Movimientos", jPanel2);
 
         jLabel1.setText("Código Patrimonial");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -94,9 +112,9 @@ public class jPanelSearchEquipo extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTabbedPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField1)
+                        .addComponent(txtCodigoPatrimonial)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -116,35 +134,194 @@ public class jPanelSearchEquipo extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCodigoPatrimonial, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        btnBuscar.setEnabled(false);
+        this.lblInformacion.setText("");
+        sbInformacion = new StringBuilderPlus();
+        if(isImpresora){
+            oImpresora =  new Impresora();
+            oImpresora.setCodigoPatrimonial(txtCodigoPatrimonial.getText());
+            oImpresora.setClaseEquipo(cboEquipo.getSelectedItem().toString());
+            oImpresora.obtenerInformacion();
+            if(oImpresora.getCodigoPatrimonial()==""){
+                JOptionPane.showMessageDialog(this, "No se encontró información del equipo.");
+                btnBuscar.setEnabled(true);
+                return;
+            }else{
+                sbInformacion.appendLine("Código Patrimonial: "+ oImpresora.getCodigoPatrimonial());
+                sbInformacion.appendLine("Marca: "+oImpresora.getMarca());
+                sbInformacion.appendLine("Modelo: "+oImpresora.getModelo());
+                sbInformacion.appendLine("Tipo de impresora: "+oImpresora.getTipo());
+                sbInformacion.appendLine("Imprime a color: "+(oImpresora.getImpresionColor()?"SI":"NO"));
+                sbInformacion.appendLine("Estado: "+(oImpresora.getEstado()?"Habilitado":"Inhabilitado"));
+                sbInformacion.appendLine("Observaciones: "+oImpresora.getObservaciones());    
+            }
+            
+        }
+        else if(isMonitor){
+            oMonitor =  new Monitor();
+            oMonitor.setCodigoPatrimonial(txtCodigoPatrimonial.getText());
+            oMonitor.setClaseEquipo(cboEquipo.getSelectedItem().toString());
+            oMonitor.obtenerInformacion();
+            if(oMonitor.getCodigoPatrimonial()==""){
+                JOptionPane.showMessageDialog(this, "No se encontró información del equipo.");
+                btnBuscar.setEnabled(true);
+                return;
+            }else{
+                sbInformacion.appendLine("Código Patrimonial: "+ oMonitor.getCodigoPatrimonial());
+                sbInformacion.appendLine("Marca: "+oMonitor.getMarca());
+                sbInformacion.appendLine("Modelo: "+oMonitor.getModelo());
+                sbInformacion.appendLine("Tipo de pantalla: "+oMonitor.getTipoPantalla());
+                sbInformacion.appendLine("Resolución: "+oMonitor.getResolucion());
+                sbInformacion.appendLine("Estado: "+(oMonitor.getEstado()?"Habilitado":"Inhabilitado"));
+                sbInformacion.appendLine("Observaciones: "+oMonitor.getObservaciones());    
+            }
+        }
+        else if(isPC){
+            oPC =  new PC();
+            oPC.setCodigoPatrimonial(txtCodigoPatrimonial.getText());
+            oPC.setClaseEquipo(cboEquipo.getSelectedItem().toString());
+            oPC.obtenerInformacion();
+            if(oPC.getCodigoPatrimonial()==""){
+                JOptionPane.showMessageDialog(this, "No se encontró información del equipo.");
+                btnBuscar.setEnabled(true);
+                return;
+            }else{
+                sbInformacion.appendLine("Código Patrimonial: "+ oPC.getCodigoPatrimonial());
+                sbInformacion.appendLine("Marca: "+oPC.getMarca());
+                sbInformacion.appendLine("Modelo: "+oPC.getModelo());
+                sbInformacion.appendLine("Procesador: "+oPC.getProcesador());
+                sbInformacion.appendLine("Capacidad de disco: "+oPC.getDiscoDuro());
+                sbInformacion.appendLine("Capacidad de Ram: "+oPC.getRam());
+                sbInformacion.appendLine("Estado: "+(oPC.getEstado()?"Habilitado":"Inhabilitado"));
+                sbInformacion.appendLine("Observaciones: "+oPC.getObservaciones());    
+            }
+        }
+        else if(isProyector){
+            oProyector =  new Proyector();
+            oProyector.setCodigoPatrimonial(txtCodigoPatrimonial.getText());
+            oProyector.setClaseEquipo(cboEquipo.getSelectedItem().toString());
+            oProyector.obtenerInformacion();
+            if(oProyector.getCodigoPatrimonial()==""){
+                JOptionPane.showMessageDialog(this, "No se encontró información del equipo.");
+                btnBuscar.setEnabled(true);
+                return;
+            }else{
+                sbInformacion.appendLine("Código Patrimonial: "+ oProyector.getCodigoPatrimonial());
+                sbInformacion.appendLine("Marca: "+oProyector.getMarca());
+                sbInformacion.appendLine("Modelo: "+oProyector.getModelo());
+                sbInformacion.appendLine("Tecnología: "+oProyector.getTecnologia());
+                sbInformacion.appendLine("Contraste: "+oProyector.getContraste());
+                sbInformacion.appendLine("Resolución: "+oProyector.getResolucion());
+                sbInformacion.appendLine("Estado: "+(oProyector.getEstado()?"Habilitado":"Inhabilitado"));
+                sbInformacion.appendLine("Observaciones: "+oProyector.getObservaciones());    
+            }
+        }
+        else if(isTeclado){
+            oTeclado =  new Teclado();
+            oTeclado.setCodigoPatrimonial(txtCodigoPatrimonial.getText());
+            oTeclado.setClaseEquipo(cboEquipo.getSelectedItem().toString());
+            oTeclado.obtenerInformacion();
+            if(oTeclado.getCodigoPatrimonial()==""){
+                JOptionPane.showMessageDialog(this, "No se encontró información del equipo.");
+                btnBuscar.setEnabled(true);
+                return;
+            }else{
+                sbInformacion.appendLine("Código Patrimonial: "+ oTeclado.getCodigoPatrimonial());
+                sbInformacion.appendLine("Marca: "+oTeclado.getMarca());
+                sbInformacion.appendLine("Modelo: "+oTeclado.getModelo());
+                sbInformacion.appendLine("Tipo de teclado: "+oTeclado.getTipoTeclado());
+                sbInformacion.appendLine("Tipo conexión: "+oTeclado.getConexion());
+                sbInformacion.appendLine("Distribución de teclas: "+oTeclado.getDistribucion());
+                sbInformacion.appendLine("Estado: "+(oTeclado.getEstado()?"Habilitado":"Inhabilitado"));
+                sbInformacion.appendLine("Observaciones: "+oTeclado.getObservaciones());    
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Seleccione que clase de equipo desea buscar");
+            btnBuscar.setEnabled(true);
+            return;
+        }
+        
+       
+        this.lblInformacion.setText(sbInformacion.toString());
+        btnBuscar.setEnabled(true);
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cboEquipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboEquipoItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_cboEquipoItemStateChanged
 
     private void cboEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboEquipoActionPerformed
-      
+       if(cboEquipo.getSelectedItem().toString().contains("[")){
+            this.isImpresora= false;
+            this.isMonitor = false;
+            this.isPC = false;
+            this.isProyector = false;
+            this.isTeclado = false;
+        }
+        else
+        {
+            switch (cboEquipo.getSelectedItem().toString()){
+                case "IMPRESORA":
+                    this.isImpresora= true;
+                    this.isMonitor = false;
+                    this.isPC = false;
+                    this.isProyector = false;
+                    this.isTeclado = false;
+                    break;
+                case "MONITOR":
+                    this.isImpresora= false;
+                    this.isMonitor = true;
+                    this.isPC = false;
+                    this.isProyector = false;
+                    this.isTeclado = false;
+                    break;    
+                case "PC":
+                    this.isImpresora= false;
+                    this.isMonitor = false;
+                    this.isPC = true;
+                    this.isProyector = false;
+                    this.isTeclado = false;
+                    break;        
+                case "PROYECTOR":
+                    this.isImpresora= false;
+                    this.isMonitor = false;
+                    this.isPC = false;
+                    this.isProyector = true;
+                    this.isTeclado = false;
+                    break;
+                case "TECLADO":
+                    this.isImpresora= false;
+                    this.isMonitor = false;
+                    this.isPC = false;
+                    this.isProyector = false;
+                    this.isTeclado = true;
+                    break;
+            }
+        }
     }//GEN-LAST:event_cboEquipoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cboEquipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextPane lblInformacion;
+    private javax.swing.JTextField txtCodigoPatrimonial;
     // End of variables declaration//GEN-END:variables
 }

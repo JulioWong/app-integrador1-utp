@@ -1,21 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views.Equipos;
 
-/**
- *
- * @author GUSTAVO
- */
+import Classes.Dependencia;
+import Classes.Equipo;
+import Classes.Facultad;
+import Classes.Impresora;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 public class jPanelListEquipo extends javax.swing.JPanel {
 
+    private Facultad oFacultad;
+    private List<Dependencia> lstDependencias;
+    private DefaultTableModel tblmodel;
+    Dependencia oDependencia;
     /**
      * Creates new form jPanelListEquipo
      */
-    public jPanelListEquipo() {
+    public jPanelListEquipo(Facultad facultad) {
+        this.oFacultad=facultad;
+        this.oDependencia= new Dependencia();
         initComponents();
+        LlenarDependencias();
+        renderTable();
     }
 
     /**
@@ -27,16 +34,16 @@ public class jPanelListEquipo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtEquipos = new javax.swing.JTable();
-        cboDependencia1 = new javax.swing.JComboBox<>();
+        cboDependencia = new javax.swing.JComboBox<>();
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -57,7 +64,7 @@ public class jPanelListEquipo extends javax.swing.JPanel {
         jtEquipos.setEditingRow(0);
         jScrollPane1.setViewportView(jtEquipos);
 
-        cboDependencia1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboDependencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -71,9 +78,9 @@ public class jPanelListEquipo extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(cboDependencia1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cboDependencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,22 +90,49 @@ public class jPanelListEquipo extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(cboDependencia1))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                    .addComponent(cboDependencia))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-
+        renderTable();
+    }//GEN-LAST:event_btnBuscarActionPerformed
+    // TODO - METODOS DE LLENADO DE COMBOS
+    private void LlenarDependencias(){
+        this.cboDependencia.removeAllItems();
+        lstDependencias = oFacultad.getDependencias();
+        for(int i=0; i<lstDependencias.size(); i++){
+            cboDependencia.addItem(lstDependencias.get(i).getDescripcion());
+        }
+    }
+    private void renderTable() {
+        this.oDependencia.setDescripcion(this.cboDependencia.getSelectedItem().toString());
+        String[] titles = {"C. Patrimonial", "Clase","Estado","U. Actual"};
+        this.tblmodel = new DefaultTableModel(null, titles);
+        addDataToModel();        
+        jtEquipos.setModel(tblmodel);
+    }
+    
+    private void addDataToModel() {
+        ArrayList<Equipo> oEquipos = oDependencia.getEquipos();
+        this.tblmodel.setRowCount(0);
+        String[] registers = new String[4];
+        for (int i = 0; i < oEquipos.size(); i++) {
+            registers[0] = oEquipos.get(i).getCodigoPatrimonial();
+            registers[1] = oEquipos.get(i).getClaseEquipo();
+            registers[2] = oEquipos.get(i).getEstado()?"Habilitado":"Inhabilitado";
+            registers[3] = oEquipos.get(i).getUbicacionActual();
+            tblmodel.addRow(registers);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboDependencia1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JComboBox<String> cboDependencia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtEquipos;

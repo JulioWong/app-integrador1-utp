@@ -2,13 +2,16 @@ package Classes;
 
 import Interfaces.MantenimientoGuardar;
 import static Interfaces.MantenimientoGuardar.database;
-import java.util.List;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.model.Filters;
+import static com.mongodb.client.model.Filters.eq;
+import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 public class Dependencia implements MantenimientoGuardar{
     private String dependenciaId;
-    private List<Equipo> equipos;
+    private ArrayList<Equipo> equipos;
     private String descripcion;
     private Facultad facultad;
 
@@ -23,8 +26,27 @@ public class Dependencia implements MantenimientoGuardar{
         this.dependenciaId = dependenciaId;
     }
 
-    public List<Equipo> getEquipos() {
-        return equipos;
+    public ArrayList<Equipo> getEquipos() {
+         try {
+             FindIterable<Document> data = this.database.getMongoCollection
+                (Utils.Constant.equiposCollection).find(Filters.and(
+                    eq("ubicacionActual", descripcion)
+                ));
+        
+            ArrayList<Equipo> allEquipos = new ArrayList<>();
+            for (Document document : data) {
+                Impresora oEquipo = new Impresora();
+                oEquipo.setCodigoPatrimonial(document.getString("codigoPatrimonial"));
+                oEquipo.setClaseEquipo(document.getString("claseEquipo"));
+                oEquipo.setEstado(document.getBoolean("estado"));
+                oEquipo.setUbicacionActual(document.getString("ubicacionActual"));
+                allEquipos.add(oEquipo);
+            }
+            equipos=allEquipos;
+            return equipos;
+        } catch (Exception e) {
+            return equipos;
+        }
     }
 
     public String getDescripcion() {
@@ -44,10 +66,13 @@ public class Dependencia implements MantenimientoGuardar{
     }
 
     @Override
-    public void guardar() {
+    public String guardar() {
         Document equipo = new Document("_id",new ObjectId());
         equipo.append("description", getDescripcion());
         equipo.append("facultadId", getFacultad().getFacultadId());
         database.insertMongoDocument(equipo, Utils.Constant.dependenciaCollection);
+        return "";
     }
+
+  
 }
