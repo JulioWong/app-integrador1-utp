@@ -1,6 +1,5 @@
 package Data;
 
-import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
@@ -35,6 +34,7 @@ public final class Database {
     public MongoCollection<Document> getMongoCollection(String table) {
         return this.mongoDatabase.getCollection(table);
     }
+    
     public boolean insertMongoDocument(Document doc, String Collection){
         try{
             MongoCollection<Document> collection = this.mongoDatabase.getCollection(Collection);
@@ -44,6 +44,7 @@ public final class Database {
             return false;
         }
     }
+    
     public boolean updateMongoDocument(Document query, Bson updateObject,String Collection){
         try{
             MongoCollection<Document> collection = this.mongoDatabase.getCollection(Collection);

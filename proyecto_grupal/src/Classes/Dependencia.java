@@ -77,6 +77,5 @@ public class Dependencia implements MantenimientoGuardar{
     @Override
     public String toString() {
         return this.descripcion;
-    }
-  
+    }  
 }
