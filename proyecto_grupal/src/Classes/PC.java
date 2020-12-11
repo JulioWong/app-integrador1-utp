@@ -72,13 +72,13 @@ public class PC extends  Equipo{
         if(rsVal != null){
             return rsVal;
         }
-        if(procesador == null){
+        if(procesador.isEmpty()){
             return "Ingrese descripción de el procesador";
         }
-         if(discoDuro == null){
+         if(discoDuro.isEmpty()){
             return "Ingrese capacidad de disco duro en gb";
         }
-         if(ram == null){
+         if(ram.isEmpty()){
             return "Ingrese capacidad de memoria Ram en gb";
         }
         Document equipo = new Document("_id",new ObjectId());
