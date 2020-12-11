@@ -11,6 +11,9 @@ public class PC extends  Equipo{
     private String procesador; // INTEL O AMD 
     private String discoDuro; // GB
     private String ram; // GB
+    
+    public PC() {
+    }
 
     public String getProcesador() {
         return procesador;
@@ -37,9 +40,6 @@ public class PC extends  Equipo{
     @Override
     public void setRam(String ram) {
         this.ram = ram;
-    }
-
-    public PC() {
     }
 
     @Override

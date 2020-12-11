@@ -13,60 +13,51 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
     public Dependencia dependenciaOrigen;
     public Dependencia dependenciaDestino;
     public ArrayList<Equipo> equipos = new ArrayList<>();
-    public Usuario usuario;
     public String motivo;
     public String fecha;
 
     public DocumentoTransferencia() {
     }
     
-    public void setDocumentoAutorizacion(String documentoAutorizacion) {
-        this.documentoAutorizacion = documentoAutorizacion;
-    }
-
-    public void setDependenciaOrigen(Dependencia dependenciaOrigen) {
-        this.dependenciaOrigen = dependenciaOrigen;
-    }
-
-    public void setDependenciaDestino(Dependencia dependenciaDestino) {
-        this.dependenciaDestino = dependenciaDestino;
-    }
-
-    public void setEquipos(ArrayList<Equipo> equipos) {
-        this.equipos = equipos;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
-    }
-
     public String getDocumentoAutorizacion() {
         return documentoAutorizacion;
+    }
+    
+    public void setDocumentoAutorizacion(String documentoAutorizacion) {
+        this.documentoAutorizacion = documentoAutorizacion;
     }
 
     public Dependencia getDependenciaOrigen() {
         return dependenciaOrigen;
     }
+    
+    public void setDependenciaOrigen(Dependencia dependenciaOrigen) {
+        this.dependenciaOrigen = dependenciaOrigen;
+    }
 
     public Dependencia getDependenciaDestino() {
         return dependenciaDestino;
+    }
+    
+    public void setDependenciaDestino(Dependencia dependenciaDestino) {
+        this.dependenciaDestino = dependenciaDestino;
     }
 
     public ArrayList<Equipo> getEquipos() {
         return equipos;
     }
 
-    public Usuario getUsuario() {
-        return usuario;
+    public void setEquipos(ArrayList<Equipo> equipos) {
+        this.equipos = equipos;
     }
 
     public String getMotivo() {
         return motivo;
     }
+    
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
+    }  
 
     public String getFecha() {
         return fecha;

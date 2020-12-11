@@ -42,8 +42,6 @@ public class Teclado extends Equipo{
         this.distribucion = distribucion;
     }
 
-    
-   
     @Override
     public void obtenerInformacion() {
          Document oData = this.database.getMongoCollection(

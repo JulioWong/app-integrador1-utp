@@ -12,35 +12,35 @@ public class Proyector extends Equipo {
     private String tecnologia;// DLP O LCD
     private String contraste; // NATIVO O DINAMICO
     private String resolucion; // ALTA O BAJA
-
-    @Override
-    public void setTecnologia(String tecnologia) {
-        this.tecnologia = tecnologia;
-    }
-
-    @Override
-    public void setContraste(String contraste) {
-        this.contraste = contraste;
-    }
-
-    @Override
-    public void setResolucion(String resolucion) {
-        this.resolucion = resolucion;
+    
+    public Proyector() {
     }
     
     public String getTecnologia() {
         return tecnologia;
     }
 
+    @Override
+    public void setTecnologia(String tecnologia) {
+        this.tecnologia = tecnologia;
+    }
+
     public String getContraste() {
         return contraste;
     }
-
+    
+    @Override
+    public void setContraste(String contraste) {
+        this.contraste = contraste;
+    }
+    
     public String getResolucion() {
         return resolucion;
     }
 
-    public Proyector() {
+    @Override
+    public void setResolucion(String resolucion) {
+        this.resolucion = resolucion;
     }
 
     @Override

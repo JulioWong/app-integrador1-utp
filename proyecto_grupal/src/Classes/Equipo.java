@@ -8,23 +8,31 @@ import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+
 public abstract class Equipo implements 
         MantenimientoGuardar, MantenimientoObtener{
 
-    private int equipoId;
-    private String claseEquipo;
     private String codigoPatrimonial;
+    private String claseEquipo;
     private String modelo;
     private String marca;
-    private String fechaRegistro;
     private String observaciones;
     private Boolean estado;
-    private final ArrayList<DocumentoTransferencia> transferencias = new ArrayList<>();;
+    private final ArrayList<DocumentoTransferencia> 
+            transferencias = new ArrayList<>();;
     private Dependencia dependencia;
 
     public Equipo() {
     }
 
+    public String getCodigoPatrimonial() {
+        return codigoPatrimonial;
+    }
+    
+    public void setCodigoPatrimonial(String codigoPatrimonial) {
+        this.codigoPatrimonial = codigoPatrimonial;
+    }
+    
     public String getClaseEquipo() {
         return claseEquipo;
     }
@@ -32,33 +40,37 @@ public abstract class Equipo implements
     public void setClaseEquipo(String claseEquipo) {
         this.claseEquipo = claseEquipo;
     }
-    
-    public int getEquipoId() {
-        return equipoId;
-    }
-
-    public String getCodigoPatrimonial() {
-        return codigoPatrimonial;
-    }
 
     public String getModelo() {
         return modelo;
+    }
+    
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getMarca() {
         return marca;
     }
-
-    public String getFechaRegistro() {
-        return fechaRegistro;
+    
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public String getObservaciones() {
         return observaciones;
     }
+    
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
 
     public Boolean getEstado() {
         return estado;
+    }
+    
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public Dependencia getDependencia() {
@@ -99,26 +111,6 @@ public abstract class Equipo implements
             }
         } catch (Exception e) { }
         return transferencias;
-    }
-
-    public void setCodigoPatrimonial(String codigoPatrimonial) {
-        this.codigoPatrimonial = codigoPatrimonial;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
     
     public abstract String imprimirInformacion();
@@ -175,6 +167,7 @@ public abstract class Equipo implements
         return false;
     }
 
+    
     
     
     

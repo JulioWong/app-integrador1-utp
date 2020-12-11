@@ -122,7 +122,7 @@ public class jPanelListEquipo extends javax.swing.JPanel {
     
     private void addDataToModel() {
         this.oDependencia = (Dependencia) this.cboDependencia.getSelectedItem();
-        ArrayList<Equipo> oEquipos = this.oDependencia.getEquipos(new Impresora()); // revisar luego
+        ArrayList<Equipo> oEquipos = this.oDependencia.getEquipos();
         this.tblmodel.setRowCount(0);
         String[] registers = new String[4];
         for (int i = 0; i < oEquipos.size(); i++) {

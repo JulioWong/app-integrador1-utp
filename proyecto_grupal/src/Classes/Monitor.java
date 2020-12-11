@@ -32,8 +32,6 @@ public class Monitor extends Equipo{
         this.tipoPantalla = tipoPantalla;
     }
 
-    
-
     @Override
     public void obtenerInformacion() {
         Document oData = this.database.getMongoCollection(
