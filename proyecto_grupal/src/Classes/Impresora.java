@@ -85,13 +85,17 @@ public class Impresora extends Equipo{
     @Override
     public String imprimirInformacion() {
         StringBuilderPlus sbInformacion = new StringBuilderPlus();
-        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
-        sbInformacion.appendLine("Marca: "+this.getMarca());
-        sbInformacion.appendLine("Modelo: "+this.getModelo());
-        sbInformacion.appendLine("Tipo de impresora: "+this.getTipo());
-        sbInformacion.appendLine("Imprime a color: "+(this.getImpresionColor()?"SI":"NO"));
-        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
-        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());    
+        sbInformacion.appendLine("Código Patrimonial: " + this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Dependendecia: "
+                + this.getDependencia().getDescripcion());    
+        sbInformacion.appendLine("Marca: " + this.getMarca());
+        sbInformacion.appendLine("Modelo: " + this.getModelo());
+        sbInformacion.appendLine("Tipo de impresora: " + this.getTipo());
+        sbInformacion.appendLine("Imprime a color: " 
+                + (this.getImpresionColor() ? "SI" : "NO"));
+        sbInformacion.appendLine("Estado: " 
+                + (this.getEstado() ? "Habilitado" : "Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: " + this.getObservaciones());    
         return sbInformacion.toString();
     }
 }

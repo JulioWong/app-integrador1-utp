@@ -45,13 +45,13 @@ public class Proyector extends Equipo {
 
     @Override
     public void obtenerInformacion() {
-         Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
-         .find(Filters.and(
+         Document oData = this.database.getMongoCollection(
+            Utils.Constant.equiposCollection).find(Filters.and(
              eq("codigoPatrimonial", this.getCodigoPatrimonial()),
              eq("claseEquipo", this.getClaseEquipo())
          )
         ).first();
-        if(oData==null){
+        if(oData == null){
             this.setCodigoPatrimonial("");
             return;
         }
@@ -94,14 +94,18 @@ public class Proyector extends Equipo {
     @Override
     public String imprimirInformacion() {
         StringBuilderPlus sbInformacion = new StringBuilderPlus();
-        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
-        sbInformacion.appendLine("Marca: "+this.getMarca());
-        sbInformacion.appendLine("Modelo: "+this.getModelo());
-        sbInformacion.appendLine("Tecnología: "+this.getTecnologia());
-        sbInformacion.appendLine("Contraste: "+this.getContraste());
-        sbInformacion.appendLine("Resolución: "+this.getResolucion());
-        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
-        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());   
+        sbInformacion.appendLine("Código Patrimonial: "
+                + this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Dependendecia: "
+                + this.getDependencia().getDescripcion());
+        sbInformacion.appendLine("Marca: " + this.getMarca());
+        sbInformacion.appendLine("Modelo: " + this.getModelo());
+        sbInformacion.appendLine("Tecnología: " + this.getTecnologia());
+        sbInformacion.appendLine("Contraste: " + this.getContraste());
+        sbInformacion.appendLine("Resolución: " + this.getResolucion());
+        sbInformacion.appendLine("Estado: "
+                + (this.getEstado() ? "Habilitado" : "Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: " + this.getObservaciones());   
         return sbInformacion.toString();
     }
 }

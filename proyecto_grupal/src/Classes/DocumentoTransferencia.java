@@ -9,7 +9,6 @@ import org.bson.types.ObjectId;
 
 public class DocumentoTransferencia implements MantenimientoGuardar{
     
-    public int transferenciaId;
     public String documentoAutorizacion;
     public Dependencia dependenciaOrigen;
     public Dependencia dependenciaDestino;
@@ -45,10 +44,6 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
         this.motivo = motivo;
     }
 
-    public int getTransferenciaId() {
-        return transferenciaId;
-    }
-
     public String getDocumentoAutorizacion() {
         return documentoAutorizacion;
     }
@@ -76,6 +71,10 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
     public String getFecha() {
         return fecha;
     }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
     
     public void agregarEquipo(Equipo equipo){
         this.equipos.add(equipo);
@@ -94,12 +93,11 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
                     getDocumentoAutorizacion());
             documentoTransferencia.append("codigoPatrimonial", 
                 eq.get(i).getCodigoPatrimonial());
-            documentoTransferencia.append("claseEquipo", 
-                eq.get(i).getClaseEquipo());
-            documentoTransferencia.append("modelo", 
-                eq.get(i).getModelo());
-            documentoTransferencia.append("motivo", 
-                getMotivo());
+            documentoTransferencia.append("claseEquipo",
+                    eq.get(i).getClaseEquipo());
+            documentoTransferencia.append("modelo", eq.get(i).getModelo());
+            documentoTransferencia.append("motivo", getMotivo());
+             documentoTransferencia.append("fecha", getFecha());
             database.insertMongoDocument(documentoTransferencia, 
                     Utils.Constant.documentoTransferenciaCollection);
             eq.get(i).actualizarDependenciaActual(getDependenciaDestino());

@@ -6,7 +6,6 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 public abstract class Equipo implements 
@@ -74,8 +73,9 @@ public abstract class Equipo implements
         
         try {
             FindIterable<Document> data = this.database.getMongoCollection
-                (Utils.Constant.documentoTransferenciaCollection).find(Filters.and(
-                    eq("codigoPatrimonial", this.codigoPatrimonial)
+                (Utils.Constant.documentoTransferenciaCollection)
+                    .find(Filters.and(
+                            eq("codigoPatrimonial", this.codigoPatrimonial)
                 ));
             
             for (Document document : data) {
@@ -88,6 +88,7 @@ public abstract class Equipo implements
                     new Dependencia(document.getString("dependenciaDestino")));
                 oTransferencia.setDocumentoAutorizacion(
                         document.getString("documentoAutorizacion"));
+                oTransferencia.setFecha(document.getString("fecha"));
                 
                 ArrayList<Equipo> equipos = new ArrayList<>();
                 equipos.add(this);
@@ -135,13 +136,15 @@ public abstract class Equipo implements
         if(this.dependencia.getDescripcion().isEmpty()){
             return "Seleccione ubicación actual.";
         }
-        Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
-            .find(Filters.and(
+        Document oData = this.database.getMongoCollection(
+                Utils.Constant.equiposCollection).find(Filters.and(
                 eq("codigoPatrimonial", this.getCodigoPatrimonial())
             )
         ).first();
-        if(oData!=null){
-            return "Ya existe un equipo registrado con el codigo patrimonial "+ getCodigoPatrimonial();
+        
+        if(oData != null){
+            return "Ya existe un equipo registrado con el codigo patrimonial " 
+                    + getCodigoPatrimonial();
         }
         return null;
     }

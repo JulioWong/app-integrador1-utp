@@ -5,7 +5,10 @@ import Classes.DocumentoTransferencia;
 import Classes.Equipo;
 import Classes.Facultad;
 import Utils.FactoryEquipos;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -201,6 +204,10 @@ public class jPanelRegisterTransferencias extends javax.swing.JPanel {
             this.oDocumentoTransferencia.setDocumentoAutorizacion(
                     txtDocumento.getText());
             this.oDocumentoTransferencia.setMotivo(txtMotivo.getText());
+            
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            String strDate = sdf.format(new Date());
+            this.oDocumentoTransferencia.setFecha(strDate);
             this.oDocumentoTransferencia.guardar();
             
             this.txtDocumento.setText("");
