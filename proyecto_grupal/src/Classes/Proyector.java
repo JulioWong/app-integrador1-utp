@@ -63,6 +63,10 @@ public class Proyector extends Equipo {
         this.setTecnologia(oData.getString("tecnologia"));
         this.setContraste(oData.getString("contraste"));
         this.setResolucion(oData.getString("resolucion"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override

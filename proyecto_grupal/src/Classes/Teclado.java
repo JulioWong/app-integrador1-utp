@@ -64,6 +64,10 @@ public class Teclado extends Equipo{
         this.setTipoTeclado(oData.getString("tipoTeclado"));
         this.setConexion(oData.getString("conexion"));
         this.setDistribucion(oData.getString("distribucion"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override

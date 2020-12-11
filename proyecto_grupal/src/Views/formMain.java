@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Views;
 
 import Classes.Dependencia;
@@ -20,7 +15,6 @@ import javax.swing.JPanel;
 
 public class formMain extends javax.swing.JFrame {
 
-    // Constantes
     private String NOMBRE_SISTEMA= "Sistema Inventario";
     private Facultad facultad;
     private ArrayList<Dependencia> dependencias;

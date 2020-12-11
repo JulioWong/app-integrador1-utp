@@ -87,7 +87,7 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
         for (int i = 0; i < eq.size(); i++) {
             Document documentoTransferencia = new Document("_id", new ObjectId());
             documentoTransferencia.append("dependenciaOrigen", 
-                getDependenciaOrigen().getDescripcion());
+                eq.get(i).getDependencia().getDescripcion());
             documentoTransferencia.append("dependenciaDestino", 
                     getDependenciaDestino().getDescripcion());
             documentoTransferencia.append("documentoAutorizacion", 
@@ -102,6 +102,7 @@ public class DocumentoTransferencia implements MantenimientoGuardar{
                 getMotivo());
             database.insertMongoDocument(documentoTransferencia, 
                     Utils.Constant.documentoTransferenciaCollection);
+            eq.get(i).actualizarDependenciaActual(getDependenciaDestino());
         }
         return "";
     }

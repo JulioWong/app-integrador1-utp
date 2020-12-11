@@ -63,6 +63,10 @@ public class PC extends  Equipo{
         this.setProcesador(oData.getString("procesador"));
         this.setDiscoDuro(oData.getString("discoDuro"));
         this.setRam(oData.getString("ram"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override

@@ -53,6 +53,10 @@ public class Monitor extends Equipo{
         this.setObservaciones(oData.getString("observaciones"));
         this.setTipoPantalla(oData.getString("tipoPantalla"));
         this.setResolucion(oData.getString("resolucion"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override

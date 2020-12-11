@@ -6,8 +6,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.bson.Document;
-public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtener{
+import org.bson.conversions.Bson;
+public abstract class Equipo implements 
+        MantenimientoGuardar, MantenimientoObtener{
 
     private int equipoId;
     private String claseEquipo;
@@ -17,7 +20,7 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
     private String fechaRegistro;
     private String observaciones;
     private Boolean estado;
-    private ArrayList<DocumentoTransferencia> transferencias = new ArrayList<>();;
+    private final ArrayList<DocumentoTransferencia> transferencias = new ArrayList<>();;
     private Dependencia dependencia;
 
     public Equipo() {
@@ -133,6 +136,32 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
             return "Seleccione ubicación actual.";
         }
         return null;
+    }
+    
+    public Boolean actualizarDependenciaActual(Dependencia dependencia) {
+        try {
+            Document data = this.database.getMongoCollection(
+                    Utils.Constant.equiposCollection)
+            .find(Filters.and(
+                eq("codigoPatrimonial", this.getCodigoPatrimonial()), 
+                eq("claseEquipo", this.getClaseEquipo())
+                )
+            ).first();
+            if (data != null) {
+                Bson updateValue  = new Document("ubicacionActual",
+                    dependencia.getDescripcion());
+            
+                Bson updateOperation  = new Document("$set", updateValue);
+            
+                Boolean resultUpdate = this.database.updateMongoDocument(
+                    data, updateOperation, Utils.Constant.equiposCollection);
+                return resultUpdate;
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        return false;
     }
 
     

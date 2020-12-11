@@ -53,6 +53,9 @@ public class Impresora extends Equipo{
         this.setEstado(oData.getBoolean("estado"));
         this.setObservaciones(oData.getString("observaciones"));
         
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);        
     }
 
     @Override
