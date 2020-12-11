@@ -135,6 +135,14 @@ public abstract class Equipo implements
         if(this.dependencia.getDescripcion().isEmpty()){
             return "Seleccione ubicación actual.";
         }
+        Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
+            .find(Filters.and(
+                eq("codigoPatrimonial", this.getCodigoPatrimonial())
+            )
+        ).first();
+        if(oData!=null){
+            return "Ya existe un equipo registrado con el codigo patrimonial "+ getCodigoPatrimonial();
+        }
         return null;
     }
     

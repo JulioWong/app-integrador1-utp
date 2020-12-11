@@ -65,7 +65,7 @@ public class Monitor extends Equipo{
         if(rsVal != null){
             return rsVal;
         }
-        if(resolucion == null){
+        if(resolucion.isEmpty()){
             return "Ingrese resolución de pantalla en pulgadas";
         }
         Document equipo = new Document("equipoId",new ObjectId());
