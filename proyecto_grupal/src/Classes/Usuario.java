@@ -1,7 +1,6 @@
 package Classes;
 
 import Data.Database;
-import com.mongodb.BasicDBObject;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -60,9 +59,11 @@ public class Usuario {
             )
         ).first();
     }
+    
     public String cambiarContrasena(String nuevaContrasena){
         try {
-            Document data = this.database.getMongoCollection(Utils.Constant.userCollection)
+            Document data = this.database.getMongoCollection(
+                    Utils.Constant.userCollection)
             .find(Filters.and(
                 eq("userId", String.valueOf(usuarioId)), 
                 eq("password", contrasena)
@@ -71,15 +72,18 @@ public class Usuario {
             if(data == null){
                 return "Contraseña antigua proporcionada no coincide";
             }
-            Bson updateValue  = new Document("password",DigestUtils.md5Hex(nuevaContrasena));
+            Bson updateValue  = new Document("password",
+                    DigestUtils.md5Hex(nuevaContrasena));
             
-            Bson updateOperation  = new Document("$set",updateValue);
+            Bson updateOperation  = new Document("$set", updateValue);
             
-            Boolean resultUpdate = this.database.updateMongoDocument(data,updateOperation, Utils.Constant.userCollection);
+            Boolean resultUpdate = this.database.updateMongoDocument(
+                    data, updateOperation, Utils.Constant.userCollection);
             
             if(resultUpdate){
-                return null;    
-            }else{
+                return null;
+                
+            } else {
                 return "No se pudo actualizar contraseña";
             }
             

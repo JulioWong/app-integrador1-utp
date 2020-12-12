@@ -11,7 +11,7 @@ import org.bson.types.ObjectId;
 
 public class Dependencia implements MantenimientoGuardar{
     private String dependenciaId;
-    private ArrayList<Equipo> equipos = new ArrayList<>();
+    private ArrayList<Equipo> equipos;
     private String descripcion;
     private Facultad facultad;
 
@@ -30,23 +30,30 @@ public class Dependencia implements MantenimientoGuardar{
         this.dependenciaId = dependenciaId;
     }
 
-    public ArrayList<Equipo> getEquipos(Equipo oEquipo) {
+    public ArrayList<Equipo> getEquipos() {
         try {
             FindIterable<Document> data = this.database.getMongoCollection
                 (Utils.Constant.equiposCollection).find(Filters.and(
                     eq("ubicacionActual", descripcion)
                 ));
+            ArrayList<Equipo> allEquipo = new ArrayList<>();
             for (Document document : data) {
+                Equipo oEquipo = new Impresora();
                 oEquipo.setCodigoPatrimonial(document.getString("codigoPatrimonial"));
                 oEquipo.setClaseEquipo(document.getString("claseEquipo"));
                 oEquipo.setEstado(document.getBoolean("estado"));
                 Dependencia dependencia = new Dependencia();
                 dependencia.setDescripcion(document.getString("ubicacionActual"));
                 oEquipo.setDependencia(dependencia);
-                this.equipos.add(oEquipo);
+                allEquipo.add(oEquipo);
             }
+            this.setEquipos(allEquipo);
         } catch (Exception e) {}
         return equipos;
+    }
+
+    public void setEquipos(ArrayList<Equipo> equipos) {
+        this.equipos = equipos;
     }
 
     public String getDescripcion() {

@@ -11,6 +11,9 @@ public class PC extends  Equipo{
     private String procesador; // INTEL O AMD 
     private String discoDuro; // GB
     private String ram; // GB
+    
+    public PC() {
+    }
 
     public String getProcesador() {
         return procesador;
@@ -39,9 +42,6 @@ public class PC extends  Equipo{
         this.ram = ram;
     }
 
-    public PC() {
-    }
-
     @Override
     public void obtenerInformacion() {
          Document oData = this.database.getMongoCollection(
@@ -51,7 +51,7 @@ public class PC extends  Equipo{
              eq("claseEquipo", this.getClaseEquipo())
          )
         ).first();
-        if(oData==null){
+        if(oData == null){
             this.setCodigoPatrimonial("");
             return;
         }
@@ -63,12 +63,16 @@ public class PC extends  Equipo{
         this.setProcesador(oData.getString("procesador"));
         this.setDiscoDuro(oData.getString("discoDuro"));
         this.setRam(oData.getString("ram"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override
     public String guardar() {
-           // VALIDACION
-        String rsVal=super.validar();
+        // VALIDACION
+        String rsVal = super.validar();
         if(rsVal != null){
             return rsVal;
         }
@@ -99,14 +103,18 @@ public class PC extends  Equipo{
     @Override
     public String imprimirInformacion() {
         StringBuilderPlus sbInformacion = new StringBuilderPlus();
-        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
-        sbInformacion.appendLine("Marca: "+this.getMarca());
-        sbInformacion.appendLine("Modelo: "+this.getModelo());
-        sbInformacion.appendLine("Procesador: "+this.getProcesador());
-        sbInformacion.appendLine("Capacidad de disco: "+this.getDiscoDuro());
-        sbInformacion.appendLine("Capacidad de Ram: "+this.getRam());
-        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
-        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());   
+        sbInformacion.appendLine("Código Patrimonial: "
+                + this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Dependendecia: "
+                + this.getDependencia().getDescripcion());
+        sbInformacion.appendLine("Marca: " + this.getMarca());
+        sbInformacion.appendLine("Modelo: " + this.getModelo());
+        sbInformacion.appendLine("Procesador: " + this.getProcesador());
+        sbInformacion.appendLine("Capacidad de disco: " + this.getDiscoDuro());
+        sbInformacion.appendLine("Capacidad de Ram: " + this.getRam());
+        sbInformacion.appendLine("Estado: " 
+                + (this.getEstado() ? "Habilitado" : "Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: " + this.getObservaciones());   
         return sbInformacion.toString();
     }
 }

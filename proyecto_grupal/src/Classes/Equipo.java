@@ -7,22 +7,32 @@ import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import org.bson.Document;
-public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtener{
+import org.bson.conversions.Bson;
 
-    private int equipoId;
-    private String claseEquipo;
+public abstract class Equipo implements 
+        MantenimientoGuardar, MantenimientoObtener{
+
     private String codigoPatrimonial;
+    private String claseEquipo;
     private String modelo;
     private String marca;
-    private String fechaRegistro;
     private String observaciones;
     private Boolean estado;
-    private ArrayList<DocumentoTransferencia> transferencias = new ArrayList<>();;
+    private final ArrayList<DocumentoTransferencia> 
+            transferencias = new ArrayList<>();;
     private Dependencia dependencia;
 
     public Equipo() {
     }
 
+    public String getCodigoPatrimonial() {
+        return codigoPatrimonial;
+    }
+    
+    public void setCodigoPatrimonial(String codigoPatrimonial) {
+        this.codigoPatrimonial = codigoPatrimonial;
+    }
+    
     public String getClaseEquipo() {
         return claseEquipo;
     }
@@ -30,33 +40,37 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
     public void setClaseEquipo(String claseEquipo) {
         this.claseEquipo = claseEquipo;
     }
-    
-    public int getEquipoId() {
-        return equipoId;
-    }
-
-    public String getCodigoPatrimonial() {
-        return codigoPatrimonial;
-    }
 
     public String getModelo() {
         return modelo;
+    }
+    
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
     }
 
     public String getMarca() {
         return marca;
     }
-
-    public String getFechaRegistro() {
-        return fechaRegistro;
+    
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     public String getObservaciones() {
         return observaciones;
     }
+    
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
+    }
 
     public Boolean getEstado() {
         return estado;
+    }
+    
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
     }
 
     public Dependencia getDependencia() {
@@ -71,8 +85,9 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
         
         try {
             FindIterable<Document> data = this.database.getMongoCollection
-                (Utils.Constant.documentoTransferenciaCollection).find(Filters.and(
-                    eq("codigoPatrimonial", this.codigoPatrimonial)
+                (Utils.Constant.documentoTransferenciaCollection)
+                    .find(Filters.and(
+                            eq("codigoPatrimonial", this.codigoPatrimonial)
                 ));
             
             for (Document document : data) {
@@ -85,6 +100,7 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
                     new Dependencia(document.getString("dependenciaDestino")));
                 oTransferencia.setDocumentoAutorizacion(
                         document.getString("documentoAutorizacion"));
+                oTransferencia.setFecha(document.getString("fecha"));
                 
                 ArrayList<Equipo> equipos = new ArrayList<>();
                 equipos.add(this);
@@ -95,26 +111,6 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
             }
         } catch (Exception e) { }
         return transferencias;
-    }
-
-    public void setCodigoPatrimonial(String codigoPatrimonial) {
-        this.codigoPatrimonial = codigoPatrimonial;
-    }
-
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
-    }
-
-    public void setMarca(String marca) {
-        this.marca = marca;
-    }
-
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    public void setEstado(Boolean estado) {
-        this.estado = estado;
     }
     
     public abstract String imprimirInformacion();
@@ -132,17 +128,46 @@ public abstract class Equipo implements MantenimientoGuardar,MantenimientoObtene
         if(this.dependencia.getDescripcion().isEmpty()){
             return "Seleccione ubicación actual.";
         }
-        Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
-            .find(Filters.and(
+        Document oData = this.database.getMongoCollection(
+                Utils.Constant.equiposCollection).find(Filters.and(
                 eq("codigoPatrimonial", this.getCodigoPatrimonial())
             )
         ).first();
-        if(oData!=null){
-            return "Ya existe un equipo registrado con el codigo patrimonial "+ getCodigoPatrimonial();
+        
+        if(oData != null){
+            return "Ya existe un equipo registrado con el codigo patrimonial " 
+                    + getCodigoPatrimonial();
         }
         return null;
     }
+    
+    public Boolean actualizarDependenciaActual(Dependencia dependencia) {
+        try {
+            Document data = this.database.getMongoCollection(
+                    Utils.Constant.equiposCollection)
+            .find(Filters.and(
+                eq("codigoPatrimonial", this.getCodigoPatrimonial()), 
+                eq("claseEquipo", this.getClaseEquipo())
+                )
+            ).first();
+            if (data != null) {
+                Bson updateValue  = new Document("ubicacionActual",
+                    dependencia.getDescripcion());
+            
+                Bson updateOperation  = new Document("$set", updateValue);
+            
+                Boolean resultUpdate = this.database.updateMongoDocument(
+                    data, updateOperation, Utils.Constant.equiposCollection);
+                return resultUpdate;
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        return false;
+    }
 
+    
     
     
     

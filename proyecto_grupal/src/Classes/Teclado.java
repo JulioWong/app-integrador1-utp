@@ -42,17 +42,15 @@ public class Teclado extends Equipo{
         this.distribucion = distribucion;
     }
 
-    
-   
     @Override
     public void obtenerInformacion() {
-         Document oData = this.database.getMongoCollection(Utils.Constant.equiposCollection)
-         .find(Filters.and(
+         Document oData = this.database.getMongoCollection(
+            Utils.Constant.equiposCollection).find(Filters.and(
              eq("codigoPatrimonial", this.getCodigoPatrimonial()),
              eq("claseEquipo", this.getClaseEquipo())
          )
         ).first();
-        if(oData==null){
+        if(oData == null){
             this.setCodigoPatrimonial("");
             return;
         }
@@ -64,6 +62,10 @@ public class Teclado extends Equipo{
         this.setTipoTeclado(oData.getString("tipoTeclado"));
         this.setConexion(oData.getString("conexion"));
         this.setDistribucion(oData.getString("distribucion"));
+        
+        Dependencia dependencia = new Dependencia(
+                oData.getString("ubicacionActual"));
+        this.setDependencia(dependencia);
     }
 
     @Override
@@ -91,14 +93,18 @@ public class Teclado extends Equipo{
     @Override
     public String imprimirInformacion() {
         StringBuilderPlus sbInformacion = new StringBuilderPlus();
-        sbInformacion.appendLine("Código Patrimonial: "+ this.getCodigoPatrimonial());
-        sbInformacion.appendLine("Marca: "+this.getMarca());
-        sbInformacion.appendLine("Modelo: "+this.getModelo());
-        sbInformacion.appendLine("Tipo de teclado: "+this.getTipoTeclado());
-        sbInformacion.appendLine("Tipo conexión: "+this.getConexion());
-        sbInformacion.appendLine("Distribución de teclas: "+this.getDistribucion());
-        sbInformacion.appendLine("Estado: "+(this.getEstado()?"Habilitado":"Inhabilitado"));
-        sbInformacion.appendLine("Observaciones: "+this.getObservaciones());  
+        sbInformacion.appendLine("Código Patrimonial: "
+                + this.getCodigoPatrimonial());
+        sbInformacion.appendLine("Dependendecia: "
+                + this.getDependencia().getDescripcion());
+        sbInformacion.appendLine("Marca: " + this.getMarca());
+        sbInformacion.appendLine("Modelo: " + this.getModelo());
+        sbInformacion.appendLine("Tipo de teclado: " + this.getTipoTeclado());
+        sbInformacion.appendLine("Tipo conexión: " + this.getConexion());
+        sbInformacion.appendLine("Distribución de teclas: " + this.getDistribucion());
+        sbInformacion.appendLine("Estado: "
+                + (this.getEstado() ? "Habilitado" : "Inhabilitado"));
+        sbInformacion.appendLine("Observaciones: " + this.getObservaciones());  
         return sbInformacion.toString();
     }
 }

@@ -184,15 +184,16 @@ public class jPanelSearchEquipo extends javax.swing.JPanel {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void renderTable() {
-        String[] titles = {"Origen", "Destino", "Motivo"};
+        String[] titles = {"Origen", "Destino", "Motivo", "Fecha"};
         this.tblmodel = new DefaultTableModel(null, titles);
         this.tblmodel.setRowCount(0);
-        String[] registers = new String[3];
+        String[] registers = new String[4];
         ArrayList<DocumentoTransferencia> transfers = this.oEquipo.getTransferencias();
         for (int i = 0; i < transfers.size(); i++) {
             registers[0] = transfers.get(i).getDependenciaOrigen().getDescripcion();
             registers[1] = transfers.get(i).getDependenciaDestino().getDescripcion();
             registers[2] = transfers.get(i).getMotivo();
+            registers[3] = transfers.get(i).getFecha();
             tblmodel.addRow(registers);
         }
         jTableMovimientos.setModel(tblmodel);
