@@ -3,7 +3,6 @@ package Views.Equipos;
 import Classes.Dependencia;
 import Classes.Equipo;
 import Classes.Facultad;
-import Classes.Impresora;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -85,15 +84,15 @@ public class jPanelListEquipo extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-                    .addComponent(cboDependencia))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cboDependencia, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -105,7 +104,8 @@ public class jPanelListEquipo extends javax.swing.JPanel {
     private void cboDependenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDependenciaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cboDependenciaActionPerformed
-    // TODO - METODOS DE LLENADO DE COMBOS
+    
+// TODO - METODOS DE LLENADO DE COMBOS
     private void LlenarDependencias(){
         this.cboDependencia.removeAllItems();
         lstDependencias = oFacultad.getDependencias();
@@ -133,6 +133,7 @@ public class jPanelListEquipo extends javax.swing.JPanel {
             tblmodel.addRow(registers);
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<Dependencia> cboDependencia;

@@ -39,7 +39,8 @@ public class Facultad {
     public ArrayList<Dependencia> getDependencias() {
         FindIterable<Document> data = this.database.getMongoCollection
                 (Utils.Constant.dependenciaCollection).find(Filters.and(
-                    eq("facultadId", facultadId)
+                    eq("facultadId", facultadId),
+                    eq("deleted", "0")
                 ));
         
         ArrayList<Dependencia> allDependencias = new ArrayList<>();

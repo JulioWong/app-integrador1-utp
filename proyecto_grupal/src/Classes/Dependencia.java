@@ -2,11 +2,13 @@ package Classes;
 
 import Interfaces.MantenimientoGuardar;
 import static Interfaces.MantenimientoGuardar.database;
+import com.mongodb.BasicDBObject;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import java.util.ArrayList;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 public class Dependencia implements MantenimientoGuardar{
@@ -71,12 +73,23 @@ public class Dependencia implements MantenimientoGuardar{
     public void setFacultad(Facultad facultad) {
         this.facultad = facultad;
     }
+    
+    public Boolean eliminar(String id) {
+        database.getMongoCollection(Utils.Constant.dependenciaCollection)
+            .updateOne(
+                new BasicDBObject("_id", new ObjectId(id)),
+                new BasicDBObject("$set", 
+                        new BasicDBObject("deleted", "1"))
+            );
+        return true;
+    }
 
     @Override
     public String guardar() {
-        Document equipo = new Document("_id",new ObjectId());
+        Document equipo = new Document("_id", new ObjectId());
         equipo.append("description", getDescripcion());
         equipo.append("facultadId", getFacultad().getFacultadId());
+        equipo.append("deleted", "0");
         database.insertMongoDocument(equipo, Utils.Constant.dependenciaCollection);
         return "";
     }

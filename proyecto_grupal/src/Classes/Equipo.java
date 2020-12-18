@@ -19,7 +19,7 @@ public abstract class Equipo implements
     private String observaciones;
     private Boolean estado;
     private final ArrayList<DocumentoTransferencia> 
-            transferencias = new ArrayList<>();;
+            transferencias = new ArrayList<>();
     private Dependencia dependencia;
 
     public Equipo() {
